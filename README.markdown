@@ -7,17 +7,17 @@ A wrapping of Jena in Common Lisp.
 
 1.  Add to ASDF
     
-    cmd$ mkdir -p ~/.asdf-install-dir/systems/
-    cmd$ ln -s jeannie.asd ~/.asdf-install-dir/systems/
-    cmd$ abcl --noinit --noinform  
-    CL-USER> (require 'abcl-contrib)
-    CL-USER> (require 'abcl-asdf)
-    CL-USER> (require 'jeannine)
-    CL-USER> ...
+        cmd$ mkdir -p ~/.asdf-install-dir/systems/
+        cmd$ ln -s jeannie.asd ~/.asdf-install-dir/systems/
+        cmd$ abcl --noinit --noinform  
+        CL-USER> (require 'abcl-contrib)
+        CL-USER> (require 'abcl-asdf)
+        CL-USER> (require 'jeannine)
+        CL-USER> ...
     
 2.  Show INDEX of available jars
 
-    CL-USER> (jeannie:index)
+        CL-USER> (jeannie:index)
 
 ## Colophon
 
