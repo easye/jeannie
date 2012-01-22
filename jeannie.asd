@@ -21,7 +21,10 @@
             ((:file "java")
              (:file "jena" :depends-on ("java"))))))
   
+;;; Symbol in this package are pure Common Lisp 
+(defsystem :djini
+  :version "1.0" :components
+  ((:module src :components
+            ((:file "rdf")))))
 
-
-   
             
