@@ -13,15 +13,15 @@ A wrapping of Jena in Common Lisp.
     CL-USER> (require 'abcl-contrib)
     CL-USER> (require 'abcl-asdf)
     CL-USER> (require 'jeannine)
-    CL-USER>
+    CL-USER> ...
     
-2.  Show INDEX of available functions
+2.  Show INDEX of available jars
 
-    CL-USER> (jeannine:index)
+    CL-USER> (jeannie:index)
 
 ## Colophon
 
 Mark <evenson.not.org@gmail.com>
 
 Created: 20-JAN-2012
-Revised: 21-JAN-2012
+Revised: 22-JAN-2012
