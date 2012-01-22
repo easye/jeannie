@@ -1,6 +1,19 @@
 (in-package :jeannie)
 
 ;;; From abcld 
+
+(defvar *verbose* nil
+  "When set, *VERBOSE* indicates the stream to log verbose messages to.")
+
+;;; c.f. http://nklein.com/2011/04/delayed-evaluation-across-packages/
+;;;
+;;; The question is whether creating a closure is generally cheaper
+;;; than evaluating arguments to FORMAT?
+(defmacro verbose (message &rest parameters)
+  `(when *verbose*
+     (format *verbose* (funcall (lambda() (format nil ,message ,@parameters))))
+     (finish-output *verbose*)))
+
 (defun jstream (file)
   "For a pathname for FILE, return a Java java.io.InputStreamReader"
   (handler-case
