@@ -2,10 +2,13 @@
 #-abcl (warn "http://common-lisp.net/project/armedbear/")
 
 (defpackage :jeannie
-  (:use :cl :abcl-asdf)
+  (:use :cl :abcl-asdf :jss)
   (:documentation "http://en.wikipedia.org/wiki/I_Dream_of_Jeannie")
   (:nicknames :jena)
-  (:export #:index))
+  (:export 
+   #:read-rdf
+   #:index))
+
 
 (in-package :jeannie)
 

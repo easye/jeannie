@@ -1,11 +1,15 @@
 (in-package :jeannie)
 
+(defparameter *model* nil)
+
 ;;; FIXME need a test
-(defun read-rdf (&key (file "index.rdf"))
-  (with-open-stream (s file :direction :input)
+(defun read-rdf (&optional &key (file #p"index.rdf"))
+  (unless *model*
+    (setf *model* (#"createDefaultModel" 'ModelFactory)))
+  (with-open-file (s file :direction :input)
     (let* ((lang "N3")
            (base "https://jena.not.org/index#rdf")
-           (reader (#"getReader" 'RDFReaderF lang))
-           (model (jss:new 'Model))
+
+           (reader (#"getReader" *model* lang))
            (input-stream (jstream s)))
-      (#"read" input-stream base lang))))
+      (#"read" reader *model* input-stream base))))
