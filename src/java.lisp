@@ -15,7 +15,7 @@
      (finish-output *verbose*)))
 
 (defun jstream (file)
-  "For a pathname for FILE, return a Java java.io.InputStreamReader"
+  "For a pathname named in FILE, return a Java java.io.InputStreamReader"
   (handler-case
       (let* ((pathname (namestring (merge-pathnames file)))
 	     (file-input-stream (jss:new 'FileInputStream pathname))
