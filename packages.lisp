@@ -7,6 +7,6 @@
   (:nicknames :jena)
   (:import-from :jss :new)
   (:export 
-   #:read-rdf
+   #:read-rdf #:*model*
    #:index))
 

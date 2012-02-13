@@ -12,4 +12,5 @@
 
            (reader (#"getReader" *model* lang))
            (input-stream (jstream s)))
-      (#"read" reader *model* input-stream base))))
+      (#"read" reader *model* input-stream base)))
+  *model*)
