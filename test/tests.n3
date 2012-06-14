@@ -1,3 +1,4 @@
+# N.B. totally bogus wrt n3 semantics, but it does parse...
 @prefix :  <urn:common-lisp:package:keyword> .
 @prefix jeannie: <https://bitbucket.org/easye/jeannie#index.not.org> .
 
