@@ -18,10 +18,14 @@ A wrapping of Jena in Common Lisp.
 2.  Show INDEX of available jars
 
         CL-USER> (jeannie:index)
+        
+3.  Read RDF
+
+        CL-USER> (jeannie:read-rdf "~/work/jeannie/test/tests.n3")
 
 ## Colophon
 
 Mark <evenson.not.org@gmail.com>
 
 Created: 20-JAN-2012
-Revised: 22-JAN-2012
+Revised: 15-JAN-2012
