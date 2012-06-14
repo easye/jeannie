@@ -3,7 +3,7 @@
 (asdf:defsystem :jeannie 
   :version "0.1"
 ;; XXX  :documentation "A wrapping of Jena for Armed Bear Common Lisp."
-  :depends-on (jss)
+  :depends-on (jss rt)
   :components ;; http://www.openjena.org/wiki/Maven
   ((:module jena :components
             ((:mvn "com.hp.hpl.jena/arq/2.8.8" )))
@@ -16,6 +16,9 @@
    ;;                 :version "2.6.4")))
    (:module package :pathname "" :depends-on (:jena) :components 
             ((:file "packages")))
+   (:module test :depends-on (src) :components
+           ((:file "tests")
+            (:static-file "tests.n3")))
    (:module src :components
             ((:file "java")
              (:file "index")

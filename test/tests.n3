@@ -1,0 +1,15 @@
+@prefix :  <urn:common-lisp:package:keyword> .
+@prefix jeannie: <https://bitbucket.org/easye/jeannie#index.not.org> .
+
+@prefix dc:      <http://purl.org/dc/terms/> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+@prefix rt:      <http://evenson.not.org/quicklisp/rt#> .
+@prefix asdf:    <http://abcl.org/require/asdf#> .
+
+_:0 rdf:first rt:do-tests ;
+    dc:label "The null prototype of the first test." .
+
+<test/users/evenson/1> 
+  rdf:first (jeannie:read-rdf (asdf:system-relative-pathname :jeannie "test/tests.n3")) .
+
