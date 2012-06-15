@@ -6,6 +6,8 @@
   :depends-on (jss rt)
   :components ;; http://www.openjena.org/wiki/Maven
   ((:module jena :components
+            ((:mvn "org.apache.jena/jena-arq"))
+            #+nil
             ((:mvn "com.hp.hpl.jena/arq/2.8.8" )))
 
    ;; (:module doc :components
