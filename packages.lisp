@@ -7,6 +7,11 @@
   (:nicknames :jena)
   (:import-from :jss :new)
   (:export 
-   #:read-rdf #:*model*
+   #:read-rdf 
+   
+   #:*model*
+
+   #:list-namesaces #:list-objects #:list-subjects #:list-statements
+
    #:index))
 

@@ -24,3 +24,37 @@ result of this call."
 ;;; introspect a Model
 
 ;;; (let ((i (#"listObjects" *model*)) ) (values (#"next" i) (#"next" i) (#"next" i) ))  --> com.hp.hpl.jena.rdf.model.impl.ResourceImpl
+
+;; implement me!
+;; (defmacro jiterator-to-list (get-iterator model)
+;;     (mapcar #"toString" (loop :with iterator = (#"listStatements" *model*) :while (#"hasNext" iterator) :collect (#"next" iterator)))
+
+(defun list-statements (&optional (model *model*))
+    (mapcar #"toString" 
+            (loop 
+               :with iterator = (#"listStatements" *model*) 
+               :while (#"hasNext" iterator)
+               :collect (#"next" iterator))))
+
+(defun list-objects (&optional (model *model*))
+    (mapcar #"toString" 
+            (loop 
+               :with iterator = (#"listObjects" *model*) 
+               :while (#"hasNext" iterator)
+               :collect (#"next" iterator))))
+
+(defun list-namespaces (&optional (model *model*))
+    (mapcar #"toString" 
+            (loop 
+               :with iterator = (#"listNameSpaces" *model*) 
+               :while (#"hasNext" iterator)
+               :collect (#"next" iterator))))
+
+(defun list-subjects (&optional (model *model*))
+    (mapcar #"toString" 
+            (loop 
+               :with iterator = (#"listSubjects" *model*) 
+               :while (#"hasNext" iterator)
+               :collect (#"next" iterator))))
+
+
