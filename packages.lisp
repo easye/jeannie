@@ -5,11 +5,13 @@
   (:use :cl :abcl-asdf)
   (:documentation "http://en.wikipedia.org/wiki/I_Dream_of_Jeannie")
   (:nicknames :jena)
-  (:export #:index))
+  (:import-from :jss :new)
+  (:export 
+   #:read-rdf 
+   
+   #:*model*
 
-(in-package :jeannie)
+   #:list-namesaces #:list-objects #:list-subjects #:list-statements
 
-(defun index () 
-  "Return the index of locally cached Jena jars that will be used"
-  ;;; TODO use these libraries in the ASDF definition.
-  (abcl-asdf:resolve-dependencies "org.apache.jena" "jena-arq"))
+   #:index))
+
