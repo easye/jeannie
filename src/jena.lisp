@@ -2,7 +2,7 @@
 
 (defparameter *model* nil)
 
-;;; FIXME define as generic function
+;;; See JEANIE:PARSE for the generic function interface to serialized RDF
 (defun read-rdf (filename)
   "Reads the contents of FILENAME as n3 triples. 
 
