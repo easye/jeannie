@@ -1,5 +1,8 @@
 ;;; -*- Mode: LISP; Syntax: COMMON-LISP -*-
-(require 'asdf)
+(require :asdf)
+(require :abcl-contrib)
+(require :abcl-asdf)
+
 (in-package :asdf)
 
 ;;; Everything in this package is pure Common Lisp

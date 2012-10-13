@@ -21,13 +21,6 @@ A wrapping of Jena in Common Lisp.
 
         CL-USER> (jeannie:read-rdf "~/work/jeannie/test/tests.n3")
 
-## Colophon
-
-Mark <evenson.not.org@gmail.com>
-
-Created: 20-JAN-2012
-Revised: 17-JUN-2012
-
 # Test Results
 
 Test
@@ -48,4 +41,26 @@ Test
    WARNING: Using LATEST for unspecified version.
    "/home/evenson/.m2/repository/org/apache/jena/jena-arq/2.9.0-incubating/jena-arq-2.9.0-incubating.jar:/home/evenson/.m2/repository/org/apache/jena/jena-core/2.7.0-incubating/jena-core-2.7.0-incubating.jar:/home/evenson/.m2/repository/org/apache/jena/jena-iri/0.9.0-incubating/jena-iri-0.9.0-incubating.jar:/home/evenson/.m2/repository/commons-codec/commons-codec/1.5/commons-codec-1.5.jar:/home/evenson/.m2/repository/org/apache/httpcomponents/httpclient/4.1.2/httpclient-4.1.2.jar:/home/evenson/.m2/repository/org/slf4j/jcl-over-slf4j/1.6.4/jcl-over-slf4j-1.6.4.jar:/home/evenson/.m2/repository/org/apache/httpcomponents/httpcore/4.1.3/httpcore-4.1.3.jar:/home/evenson/.m2/repository/com/ibm/icu/icu4j/3.4.4/icu4j-3.4.4.jar:/home/evenson/.m2/repository/xerces/xercesImpl/2.10.0/xercesImpl-2.10.0.jar:/home/evenson/.m2/repository/xml-apis/xml-apis/1.4.01/xml-apis-1.4.01.jar:/home/evenson/.m2/repository/org/slf4j/slf4j-api/1.6.4/slf4j-api-1.6.4.jar:/home/evenson/.m2/repository/org/slf4j/slf4j-log4j12/1.6.4/slf4j-log4j12-1.6.4.jar:/home/evenson/.m2/repository/log4j/log4j/1.2.16/log4j-1.2.16.jar"
    CL-USER> 
+
+## TODO
+
+To do: decide on generic functions names intersection with type system.
+
+Possible method names (sought for qualities: short, as few as possible):
+
+    JEANNIE:PARSE 
+    
+    JEANNIE:INFER
+    
+    JEANNIE:AFFIRM
+    
+    JEANNIE:FREEZE
+    
+    
+## Colophon
+
+Mark <evenson.not.org@gmail.com>
+
+Created: 20-JAN-2012
+Revised: 13-OCT-2013
 
