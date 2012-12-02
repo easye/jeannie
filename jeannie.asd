@@ -3,6 +3,8 @@
 (require :abcl-contrib)
 (require :abcl-asdf)
 
+(ql:quickload :rt)
+
 ;;; Everything in this package is pure Common Lisp
 (asdf:defsystem :djini
   :version "0.1" :components ((:module src :components 
