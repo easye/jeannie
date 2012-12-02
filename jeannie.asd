@@ -15,7 +15,7 @@
   :version "0.1" 
   :depends-on (rt)
   :components ((:module jena :components
-                        ((:mvn "org.apache.jena/jena-arq"))
+                        ((:mvn "org.apache.jena/jena-arq/2.9.3"))
                         #+nil
                         ((:mvn "com.hp.hpl.jena/arq/2.8.8" )))
 
@@ -34,3 +34,12 @@
                         ((:file "java")
                          (:file "index")
                          (:file "jena" :depends-on ("java"))))))
+
+(defmethod asdf:perform ((o test-op) (c (eql (find-system :jeannie))))
+  (funcall (intern (symbol-name 'do-tests) (find-package 'rt))))
+
+;;; FIXME Should NOT be neceessary
+(defmethod asdf:perform ((o load-op) (c (eql (find-system :jeannie))))
+  (java:add-to-classpath (abcl-asdf:as-classpath
+                          (abcl-asdf:resolve-dependencies 
+                           "org.apache.jena" "jena-arq" "2.9.3"))))
