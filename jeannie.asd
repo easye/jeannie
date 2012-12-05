@@ -7,7 +7,7 @@
 
 (asdf:defsystem :jeannie 
   :description "A wrapping of Jena for Armed Bear Common Lisp."
-  :version "0.2" 
+  :version "0.2.1" 
   :depends-on (rt)
   :components ((:module jena :serial t :components
                         ((:mvn "org.apache.jena/jena-core")
