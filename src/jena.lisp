@@ -20,9 +20,6 @@ result of this call."
       (#"read" reader *model* input-stream base)))
   *model*)
 
-  
-
-
 ;;; introspect a Model
 
 ;;; (let ((i (#"listObjects" *model*)) ) (values (#"next" i) (#"next" i) (#"next" i) ))  --> com.hp.hpl.jena.rdf.model.impl.ResourceImpl
