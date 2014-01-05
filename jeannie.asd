@@ -30,13 +30,13 @@
   :description "Common Lisp-only local peer implementation."
   :version "0.0.2"
   :depends-on (jeannie 
-;;			   restas cl-who parenscript drakma 
-#+nil			   ironclad) ;; 
+;;             restas cl-who parenscript drakma 
+#+nil              ironclad) ;; 
   :components ((:file "packages")
-			   (:module src 
-						:serial t 
-						:components ((:file "rdf")
-									 (:file "djini")))))
+               (:module src 
+                        :serial t 
+                        :components ((:file "rdf")
+                                     (:file "djini")))))
 
 
 
