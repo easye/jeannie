@@ -27,8 +27,17 @@
 
 ;;; Everything in this package is pure Common Lisp
 (asdf:defsystem :djini
-  :version "0.1" 
-  :depends-on (jeannie)
-  :components ((:module src :components ((:file "rdf")))))
+  :description "Common Lisp-only local peer implementation."
+  :version "0.0.2"
+  :depends-on (jeannie 
+;;			   restas cl-who parenscript drakma 
+#+nil			   ironclad) ;; 
+  :components ((:file "packages")
+			   (:module src 
+						:serial t 
+						:components ((:file "rdf")
+									 (:file "djini")))))
+
+
 
 

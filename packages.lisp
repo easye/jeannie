@@ -17,3 +17,16 @@
 
    #:index))
 
+(defpackage :org.not.djini
+  (:use :cl :jeannie)
+  (:nicknames "DJINI")
+  (:export #:triple 
+		   #:construct  ;; make primitive RDF triple 
+
+		   #:*model*
+
+		   #:persist
+		   #:start-peer)) ;; unimplemented
+
+
+
