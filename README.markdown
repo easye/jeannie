@@ -200,6 +200,13 @@ Possible methods (sought for qualities: short, as few as possible):
     JEANNIE:FREEZE PATHNAME &optional MODEL
     
 N.b. Use single form of DEFGENERIC (no DEFMETHOD!)  Documentation.
+
+## Reference
+
+### Jena API
+
+<https://jena.apache.org/documentation/javadoc/jena/com/hp/hpl/jena/rdf/model/Model.html#read%28java.lang.String,%20java.lang.String%29>
+
     
     
 ## Colophon
@@ -207,5 +214,5 @@ N.b. Use single form of DEFGENERIC (no DEFMETHOD!)  Documentation.
 Mark <evenson.not.org@gmail.com>
 
 Created: 20-JAN-2012
-Revised: 05-DEC-2013
+Revised: 12-MAR-2014
 
