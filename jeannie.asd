@@ -2,6 +2,7 @@
 (require :asdf)
 (require :abcl-contrib)
 (require :abcl-asdf)
+(require :quicklisp-abcl)
 
 (ql:quickload :rt)
 
