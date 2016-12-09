@@ -1,44 +1,29 @@
 ;;; -*- Mode: LISP; Syntax: COMMON-LISP -*-
-(require :asdf)
-(require :abcl-contrib)
-(require :abcl-asdf)
-(require :quicklisp-abcl)
+#-abcl (error "You need the Bear for this one")
 
-(ql:quickload :rt)
-
-(asdf:defsystem :jeannie 
+(asdf:defsystem jeannie
   :description "A wrapping of Jena for Armed Bear Common Lisp."
-  :version "0.2.3" 
+  :version "0.3.0"
   :defsystem-depends-on (abcl-asdf)
-  :depends-on (rt)
+  :depends-on ()
   :components ((:module jena :serial t :components
-                        ((:mvn "org.apache.jena/jena-core")
-                         (:mvn "org.apache.jena/jena-arq")))
+                        ((:mvn "org.apache.jena/jena-core/3.1.1")
+                         (:mvn "org.apache.jena/jena-arq/3.1.1")))
                (:module package :pathname "" :depends-on (:jena) 
                         :components ((:file "packages")))
-               (:module test :depends-on (src) 
-                        :components ((:file "tests")
-                                     (:static-file "tests.n3")))
                (:module src :components ((:file "java")
                                          (:file "index")
-                                         (:file "jena" :depends-on ("java"))))))
+                                         (:file "jena" :depends-on ("java")))))
+  :in-order-to ((test-op (test-op jeannie-test))))
 
-(defmethod asdf:perform ((o test-op) (c (eql (find-system :jeannie))))
-  (funcall (intern (symbol-name 'do-tests) (find-package 'rt))))
-
-;;; Everything in this package is pure Common Lisp
-(asdf:defsystem :djini
-  :description "Common Lisp-only local peer implementation."
-  :version "0.0.2"
-  :depends-on (jeannie 
-;;             restas cl-who parenscript drakma 
-#+nil              ironclad) ;; 
-  :components ((:file "packages")
-               (:module src 
-                        :serial t 
-                        :components ((:file "rdf")
-                                     (:file "djini")))))
-
-
-
-
+(asdf:defsystem jeannie/test
+  :depends-on (:jeannie
+               :prove)
+  :components ((:module "t"
+                :components
+                ((:test-file "jeannie"))))
+  :description "Test system for jeannie"
+  :defsystem-depends-on (:prove-asdf)
+  :perform (test-op :after (op c)
+                    (funcall (intern #.(string :run-test-system) :prove-asdf) c)
+                    (asdf:clear-system c)))
