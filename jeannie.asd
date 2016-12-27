@@ -3,27 +3,31 @@
 
 (asdf:defsystem jeannie
   :description "A wrapping of Jena for Armed Bear Common Lisp."
-  :version "0.3.0"
+  :version "0.4.0"
   :defsystem-depends-on (abcl-asdf)
-  :depends-on ()
   :components ((:module jena :serial t :components
                         ((:mvn "org.apache.jena/jena-core/3.1.1")
                          (:mvn "org.apache.jena/jena-arq/3.1.1")))
-               (:module package :pathname "" :depends-on (:jena) 
-                        :components ((:file "packages")))
-               (:module src :components ((:file "java")
-                                         (:file "index")
-                                         (:file "jena" :depends-on ("java")))))
-  :in-order-to ((test-op (test-op jeannie-test))))
+               (:module fuseki :depends-on (jena) :components
+                         ((:mvn "org.apache.jena/jena-fuseki-server/2.4.1")))
+               (:module package :pathname "src" 
+                        :components ((:file "package")))
+               (:module src :depends-on (jena)
+                        :serial t
+                        :components ((:file "java")
+                                     (:file "index")
+                                     (:file "jena"))))
+  :in-order-to ((test-op (test-op jeannie/test))))
 
 (asdf:defsystem jeannie/test
-  :depends-on (:jeannie
-               :prove)
-  :components ((:module "t"
-                :components
-                ((:test-file "jeannie"))))
+  :defsystem-depends-on (prove-asdf)
+  :depends-on (jeannie
+               prove)
+  :components ((:module package :pathname "t/"
+                        :components ((:file "package")))
+               (:module t :depends-on (package)
+                        :components ((:test-file "jeannie"))))
   :description "Test system for jeannie"
-  :defsystem-depends-on (:prove-asdf)
-  :perform (test-op :after (op c)
-                    (funcall (intern #.(string :run-test-system) :prove-asdf) c)
-                    (asdf:clear-system c)))
+  :perform (test-op (op c)
+                    (uiop:symbol-call :prove-asdf 'run-test-system c)))
+
