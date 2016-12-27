@@ -8,8 +8,10 @@
   :components ((:module jena :serial t :components
                         ((:mvn "org.apache.jena/jena-core/3.1.1")
                          (:mvn "org.apache.jena/jena-arq/3.1.1")))
-               (:module fuseki :depends-on (jena) :components
-                         ((:mvn "org.apache.jena/jena-fuseki-server/2.4.1")))
+               (:module fuseki :depends-on (jena package) :components
+                         ((:mvn "org.apache.jena/jena-fuseki-embedded/2.4.1")))
+               (:module server :depends-on (fuseki) :pathname "src/"
+                        :components ((:file "server")))
                (:module package :pathname "src" 
                         :components ((:file "package")))
                (:module src :depends-on (jena)
