@@ -4,5 +4,11 @@
   (declare (ignore type))
   (#"getOWLReasoner" 'ReasonerRegistry))
 
+(defun inferred-model (model)
+  (let ((reasoner (get-reasoner)))
+    (#"createInfModel" 'ModelFactory reasoner model)))
+
+    
+
 
     

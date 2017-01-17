@@ -13,9 +13,9 @@
 
    #:parse
 
-   #:get-reasoner
+   #:get-reasoner #:inferred-model
 
-   #:list-namesaces #:list-objects #:list-subjects #:list-statements
+   #:list-namespaces #:list-objects #:list-subjects #:list-statements
 
    #:index))
 

@@ -13,8 +13,6 @@ If MODEL is nil, a new model is created.
 
 Optionally specify the input via FORMAT, one of at least the set 'N3'
 'RDF/XML' 'N-TRIPLE' 'TURTLE'.  The default is 'N3'."
-
-
   (unless model
     (setf model (#"createDefaultModel" 'ModelFactory)))
   (let ((formats  '("N3" "RDF/XML" "N-TRIPLE" "TURTLE"))
@@ -34,32 +32,42 @@ Optionally specify the input via FORMAT, one of at least the set 'N3'
 ;; (defmacro jiterator-to-list (get-iterator model)
 ;;     (mapcar #"toString" (loop :with iterator = (#"listStatements" *model*) :while (#"hasNext" iterator) :collect (#"next" iterator)))
 
-(defun list-statements (&optional (model *model*))
+(defun list-statements (model &key subject predicate object)
+  (let ((s (if subject
+               (#"createResource" 'rdf.model.ResourceFactory subject)
+               java:+null+))
+        (p (if predicate
+               (#"createProperty" 'rdf.model.ResourceFactory predicate)
+               java:+null+))
+        (o (if object
+               (#"createProperty" 'rdf.model.ResourceFactory object)
+               java:+null+)))
     (mapcar #"toString" 
             (loop 
-               :with iterator = (#"listStatements" *model*) 
+               :with iterator = (#"listStatements" model s o p)  
+               :while (#"hasNext" iterator)
+               :collect (#"next" iterator)))))
+
+(defun list-objects (model)
+    (mapcar #"toString" 
+            (loop 
+               :with iterator = (#"listObjects" model) 
                :while (#"hasNext" iterator)
                :collect (#"next" iterator))))
 
-(defun list-objects (&optional (model *model*))
+(defun list-namespaces (model)
     (mapcar #"toString" 
             (loop 
-               :with iterator = (#"listObjects" *model*) 
+               :with iterator = (#"listNameSpaces" model) 
                :while (#"hasNext" iterator)
                :collect (#"next" iterator))))
 
-(defun list-namespaces (&optional (model *model*))
+(defun list-subjects (model)
     (mapcar #"toString" 
             (loop 
-               :with iterator = (#"listNameSpaces" *model*) 
+               :with iterator = (#"listSubjects" model) 
                :while (#"hasNext" iterator)
                :collect (#"next" iterator))))
 
-(defun list-subjects (&optional (model *model*))
-    (mapcar #"toString" 
-            (loop 
-               :with iterator = (#"listSubjects" *model*) 
-               :while (#"hasNext" iterator)
-               :collect (#"next" iterator))))
 
 
