@@ -18,27 +18,40 @@ server.stop() ;
 
 (in-package :jeannie)
 
-(defvar *server* nil)
+(defparameter *last-server* nil)
 
-(defun start-server (&key (port 3330))
-  (when *server*
-    (warn "Server already present: ~a" *server*))
-  (let ((dataset (#"createTxnMem" 'DatasetFactory))
+(defun start-server (&key
+                       directory
+                       (path "/ds")
+                       (port 3330))
+  (let ((dataset
+         (if directory
+             (progn
+               (format *standard-output* "~&Creating dataset under <file:~a>.~%" directory)
+               (create-persistent-dataset directory)
+             (create-memory-dataset))))
         (server-builder (#"create" 'FusekiEmbeddedServer)))
     (#"setPort" server-builder port)
-    (#"add" server-builder "/ds" dataset)
-    (let ((server (#"build" server-builder)))
+    (#"add" server-builder path dataset)
+    (let ((server (#"build" server-builder))
+          (endpoint (format nil "http://127.0.0.1:~a~a" port path)))
       (#"start" server)
-      (setf *server* server))))
+      (setf *last-server* server)
+      (format *standard-output* "~&Started SPARQL endpoint at <~a>~%" endpoint)
+      (values
+       server
+       endpoint))))
 
-(defun stop-server ()
-  (unless *server*
-    (error "No server present to stop."))
-  (#"stop" *server*)
+(defun stop-server (server)
+  (#"stop" server)
   (setf *server* nil))
 
-  
+(defun create-memory-dataset ()
+  (#"createTxnMem" 'DatasetFactory))                            
+
+(defun create-persistent-dataset (directory)
+  (let ((d (pathname directory)))
+    (#"createDataset" 'TDBFactory (namestring d))))
+
     
           
-    
-  

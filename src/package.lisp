@@ -15,6 +15,8 @@
 
    #:get-reasoner #:inferred-model
 
+   #:start-server #:stop-server
+
    #:list-namespaces #:list-objects #:list-subjects #:list-statements
 
    #:index))

@@ -9,8 +9,10 @@
                         ((:mvn "org.apache.jena/jena-core/3.1.1")
                          (:mvn "org.apache.jena/jena-arq/3.1.1")))
                (:module fuseki :depends-on (jena package) :components
-                         ((:mvn "org.apache.jena/jena-fuseki-embedded/2.4.1")))
-               (:module server :depends-on (fuseki) :pathname "src/"
+                        ((:mvn "org.apache.jena/jena-fuseki-embedded/2.4.1")))
+               (:module tdb :components
+                        ((:mvn "org.apache.jena/jena-tdb/3.1.1")))
+               (:module server :depends-on (fuseki tdb) :pathname "src/"
                         :components ((:file "server")))
                (:module reasoner :depends-on (source)
                         :pathname "src/"
@@ -33,6 +35,8 @@
                         :components ((:file "package")))
                (:module owl :pathname "t/"
                         :components ((:test-file "owl-reasoner")))
+               (:module sparql :pathname "t/"
+                        :components ((:test-file "sparql")))
                (:module t :depends-on (package)
                         :components ((:test-file "jeannie"))))
   :description "Test system for jeannie"
