@@ -43,8 +43,7 @@ server.stop() ;
        endpoint))))
 
 (defun stop-server (server)
-  (#"stop" server)
-  (setf *server* nil))
+  (#"stop" server))
 
 (defun create-memory-dataset ()
   (#"createTxnMem" 'DatasetFactory))                            
