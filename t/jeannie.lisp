@@ -1,9 +1,6 @@
 (in-package :jeannie/test)
 
-(plan 3)
-
-(ok
- (index))
+(plan 2)
 
 (ok
  (read-rdf (asdf:system-relative-pathname :jeannie "t/tests.n3"))

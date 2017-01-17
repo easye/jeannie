@@ -13,6 +13,8 @@
 
    #:parse
 
+   #:get-reasoner
+
    #:list-namesaces #:list-objects #:list-subjects #:list-statements
 
    #:index))

@@ -3,7 +3,7 @@
 
 (asdf:defsystem jeannie
   :description "A wrapping of Jena for Armed Bear Common Lisp."
-  :version "0.4.0"
+  :version "0.5.0"
   :defsystem-depends-on (abcl-asdf)
   :components ((:module jena :serial t :components
                         ((:mvn "org.apache.jena/jena-core/3.1.1")
@@ -12,9 +12,13 @@
                          ((:mvn "org.apache.jena/jena-fuseki-embedded/2.4.1")))
                (:module server :depends-on (fuseki) :pathname "src/"
                         :components ((:file "server")))
+               (:module reasoner :depends-on (source)
+                        :pathname "src/"
+                        :components ((:file "reason")))
                (:module package :pathname "src" 
                         :components ((:file "package")))
-               (:module src :depends-on (jena)
+               (:module source :depends-on (jena)
+                        :pathname "src/"
                         :serial t
                         :components ((:file "java")
                                      (:file "index")
@@ -27,6 +31,8 @@
                prove)
   :components ((:module package :pathname "t/"
                         :components ((:file "package")))
+               (:module owl :pathname "t/"
+                        :components ((:test-file "owl-reasoner")))
                (:module t :depends-on (package)
                         :components ((:test-file "jeannie"))))
   :description "Test system for jeannie"
