@@ -2,10 +2,27 @@
 
 (defparameter *model* nil)
 
+(defgeneric read-rdf (filename &key
+                                 (format "N3")
+                                 (model *model*)))
+
+(defmethod read-rdf ((buffer string)
+                     &key
+                       (format "N3")
+                       (model *model*))
+  ;;; FIXME: refactor out of ABCL-specific implmentation with UIOP
+  (let ((file (ext:make-temp-file)))
+    (alexandria:write-string-into-file buffer file
+                                       :if-exists :supersede)
+    (prog1
+        (read-rdf file)
+        (delete-file file))))
+
 ;;; See JEANIE:PARSE for the generic function interface to serialized RDF
-(defun read-rdf (filename &key
-                            (format "N3")
-                            (model *model*))
+(defmethod read-rdf ((filename pathname)
+                       &key
+                         (format "N3")
+                         (model *model*))
                             
   "Deserializes the contents of FILENAME returning the results in MODEL.
 
