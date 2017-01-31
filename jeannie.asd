@@ -10,8 +10,10 @@
                          (:mvn "org.apache.jena/jena-arq/3.1.1")))
                (:module fuseki :depends-on (jena package) :components
                         ((:mvn "org.apache.jena/jena-fuseki-embedded/2.4.1")))
-               (:module tdb :components
-                        ((:mvn "org.apache.jena/jena-tdb/3.1.1")))
+               (:module tdb :depends-on (source)
+                        :pathname "src/" :components
+                        ((:mvn "org.apache.jena/jena-tdb/3.1.1")
+                         (:file "tdb")))
                (:module server :depends-on (fuseki tdb) :pathname "src/"
                         :components ((:file "server")))
                (:module reasoner :depends-on (source)
