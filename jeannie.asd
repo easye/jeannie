@@ -5,6 +5,7 @@
   :description "A wrapping of Jena for Armed Bear Common Lisp."
   :version "0.5.0"
   :defsystem-depends-on (abcl-asdf)
+  :depends-on (simple-date-time)
   :components ((:module jena :serial t :components
                         ((:mvn "org.apache.jena/jena-core/3.1.1")
                          (:mvn "org.apache.jena/jena-arq/3.1.1")))
@@ -24,7 +25,8 @@
                (:module source :depends-on (jena)
                         :pathname "src/"
                         :serial t
-                        :components ((:file "java")
+                        :components ((:file "note")
+                                     (:file "java")
                                      (:file "index")
                                      (:file "jena"))))
   :in-order-to ((test-op (test-op jeannie/test))))
@@ -35,9 +37,14 @@
                prove)
   :components ((:module package :pathname "t/"
                         :components ((:file "package")))
+               (:module tdb :pathname "t/"
+                        :depends-on (package)
+                        :components ((:file "persist")))
                (:module owl :pathname "t/"
+                        :depends-on (package)
                         :components ((:test-file "owl-reasoner")))
                (:module sparql :pathname "t/"
+                        :depends-on (package)
                         :components ((:test-file "sparql")))
                (:module t :depends-on (package)
                         :components ((:test-file "jeannie"))))

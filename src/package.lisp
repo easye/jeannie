@@ -15,6 +15,8 @@
 
    #:get-reasoner #:inferred-model
 
+   #:note
+
    #:affirm #:snapshot
 
    #:start-server #:stop-server
