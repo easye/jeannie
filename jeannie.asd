@@ -34,7 +34,7 @@
   :components ((:module tdb :pathname "src/" :components
                         ((:mvn "org.apache.jena/jena-tdb/3.1.1")
                          (:file "tdb")))))
-                
+
 (asdf:defsystem jeannie/server/fuseki
   :description "Use of Fuseki Embedded server for managing SPARQL endpoints."
   :version "0.1.0"
@@ -44,7 +44,10 @@
                         ((:mvn "org.apache.jena/jena-fuseki-embedded/2.4.1")))
                (:module server :depends-on (fuseki) :pathname "src/"
                         :components ((:file "server")))))
-  
+
+(asdf:defsystem jeannie/server
+  :depends-on (jeannie/server/fuseki))
+
 (asdf:defsystem jeannie/test
   :defsystem-depends-on (prove-asdf)
   :depends-on (jeannie
