@@ -20,7 +20,7 @@
    #:affirm #:snapshot
 
    #:start-server #:stop-server
-   #:running-instances
+   #:running-instances #:*servers*
 
    #:list-namespaces #:list-objects #:list-subjects #:list-statements
 
