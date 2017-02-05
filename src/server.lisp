@@ -16,7 +16,7 @@ server.stop() ;
 
 |#
 
-(in-package :jeannie)
+(in-package :jeannie/server)
 
 (defparameter *servers* (make-hash-table)
   "All Fuseki instances we see in the lifetime of the process executing this code.")
@@ -29,10 +29,11 @@ server.stop() ;
           (warn "No such server instance ~a has been started." server)
           0))))
 
-(defun start-server (&key
-                       directory
-                       (path "/ds")
-                       (port 3330))
+(defun start (&key
+                directory
+                (path "/ds")
+                (port 3330))
+  "Start a FusekiEmbeddedServer instance running on PORT with persistence under PATH"
   (let ((dataset
          (if directory
              (progn
@@ -56,19 +57,15 @@ server.stop() ;
        server
        endpoint))))
 
-(defun stop-server (server)
+(defun stop (server)
+  "Stop an instance of a previously created Fuseki SERVER."
   (note "~&Stopping Fuseki ~a instance with ~a outstanding instances."
         server
         (gethash server *servers*))
   (#"stop" server)
   (decf (gethash server *servers*)))
 
-(defun create-memory-dataset ()
-  (#"createTxnMem" 'DatasetFactory))                            
 
-(defun create-persistent-dataset (directory)
-  (let ((d (pathname directory)))
-    (#"createDataset" 'TDBFactory (namestring d))))
 
     
           

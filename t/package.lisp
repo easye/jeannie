@@ -2,4 +2,8 @@
 
 (defpackage jeannie/test
   (:use #:cl #:jeannie #:prove)
-  (:nicknames jeannie-test jeannie-tests))
+  (:nicknames jeannie-test))
+
+(defpackage jeannie/test/server
+  (:use #:cl #:jeannie #:prove)
+  (:nicknames jeannie-test-server))

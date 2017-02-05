@@ -40,6 +40,15 @@ Persist statement to tdb store at PATH, adding if it already exists."
       (#"end" dataset))
     result))
 
+(defun create-memory-dataset ()
+  "Create a memory mapped triple dataset."
+  (#"createTxnMem" 'DatasetFactory))                            
+
+(defun create-persistent-dataset (directory)
+  "Create a TDB triple store under DIRECTORY."
+  (let ((d (pathname directory)))
+    (#"createDataset" 'TDBFactory (namestring d))))
+
 #|
 <https://jena.apache.org/documentation/tdb/java_api.html>
 
