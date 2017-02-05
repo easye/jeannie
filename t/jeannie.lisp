@@ -1,7 +1,7 @@
 (in-package :jeannie/test)
 
 (plan 2)
-(let ((path (asdf:system-relative-pathname :jeannie "t/tests.n3")))
+(let ((path (asdf:system-relative-pathname :jeannie "t/eg/tests.n3")))
   (diag (format nil "Testing reading RDF from '~a'." path))
   (let ((model (read-rdf path)))
     (is (java:jclass-of model)
@@ -19,7 +19,7 @@
       "org.apache.jena.rdf.model.impl.ModelCom"))
 
 (plan 1)
-(let ((path (asdf:system-relative-pathname :jeannie "t/bfo.owl")))
+(let ((path (asdf:system-relative-pathname :jeannie "t/eg/bfo.owl")))
   (diag (format nil "Testing reading of RDF/XML serialization from '~a'…" path))
   (is (java:jclass-of (read-rdf path :format "rdf/xml"))
       "org.apache.jena.rdf.model.impl.ModelCom"))

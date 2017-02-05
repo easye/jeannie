@@ -18,7 +18,16 @@ server.stop() ;
 
 (in-package :jeannie)
 
-(defparameter *last-server* nil)
+(defparameter *servers* (make-hash-table)
+  "All Fuseki instances we see in the lifetime of the process executing this code.")
+
+(defun running-instances (server)
+  (let ((it (gethash server *servers*)))
+    (if it
+        it
+        (progn
+          (warn "No such server instance ~a has been started." server)
+          0))))
 
 (defun start-server (&key
                        directory
@@ -36,14 +45,23 @@ server.stop() ;
     (let ((server (#"build" server-builder))
           (endpoint (format nil "http://127.0.0.1:~a~a" port path)))
       (#"start" server)
-      (setf *last-server* server)
+      (if (not (gethash server *servers*))
+          (setf (gethash server *servers*) 1)
+          (progn
+            (warn "Inconsistent restart on server instance ~a requested.")
+            (setf (gethash server *servers*)
+                  (incf (gethash server *servers*)))))
       (format *standard-output* "~&Started SPARQL endpoint at <~a>~%" endpoint)
       (values
        server
        endpoint))))
 
 (defun stop-server (server)
-  (#"stop" server))
+  (note "~&Stopping Fuseki ~a instance with ~a outstanding instances."
+        server
+        (gethash server *servers*))
+  (#"stop" server)
+  (decf (gethash server *servers*)))
 
 (defun create-memory-dataset ()
   (#"createTxnMem" 'DatasetFactory))                            

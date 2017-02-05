@@ -20,6 +20,7 @@
    #:affirm #:snapshot
 
    #:start-server #:stop-server
+   #:running-instances
 
    #:list-namespaces #:list-objects #:list-subjects #:list-statements
 
