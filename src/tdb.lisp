@@ -7,9 +7,12 @@
 (defun affirm (subject property value
                &key (path #p"/var/tmp/ds/")
                  (namespace "http://example.org/jeannie#"))
-  "AFFIRM that SUBJECT has PROPERTY with VALUE
+  "Affirm that SUBJECT has PROPERTY with VALUE
 
-Persist statement to tdb store at PATH, adding if it already exists."
+Persist statement to tdb store at PATH, adding if it already exists. 
+
+This function aquires a WRITE transaction on the tdb store at PATH, intended for intra-JVM
+resource contention.  Under load, i.e. multiple writes, this strategy will degrade quickly."
    (unless (probe-file path)
      (note "Ensuring directories exist for '~a'." path)
      (ensure-directories-exist path))
