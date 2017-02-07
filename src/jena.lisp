@@ -8,15 +8,21 @@
 
 (defmethod read-rdf ((buffer string)
                      &key
+                       (resignal-error nil)
                        (format "N3")
                        (model *model*))
   ;;; FIXME: refactor out of ABCL-specific implmentation with UIOP
   (let ((file (ext:make-temp-file)))
     (alexandria:write-string-into-file buffer file
                                        :if-exists :supersede)
-    (prog1
-        (read-rdf file)
-        (delete-file file))))
+    (handler-case
+        (unwind-protect
+             (read-rdf file)
+          (delete-file file))
+      (java:java-exception (e)
+        (if resignal-error
+            (signal e)
+            (note "Encounted java exception: ~a." e))))))
 
 ;;; See JEANIE:PARSE for the generic function interface to serialized RDF
 (defmethod read-rdf ((filename pathname)

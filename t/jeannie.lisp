@@ -1,6 +1,14 @@
 (in-package :jeannie/test)
 
 (plan 2)
+(let ((not-a-turtle-statement "not a turtle-statement"))
+  (ok
+   (jeannie:read-rdf not-a-turtle-statement))
+  (is-error
+   (jeannie:read-rdf not-a-turtle-statement :resignal-error t)
+   'java:java-exception))
+
+(plan 2)
 (let ((path (asdf:system-relative-pathname :jeannie "t/eg/tests.n3")))
   (diag (format nil "Testing reading RDF from '~a'." path))
   (let ((model (read-rdf path)))
