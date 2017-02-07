@@ -49,7 +49,7 @@ server.stop() ;
       (if (not (gethash server *servers*))
           (setf (gethash server *servers*) 1)
           (progn
-            (warn "Inconsistent restart on server instance ~a requested.")
+            (warn "Inconsistent start on already running server instance ~a requested." server)
             (setf (gethash server *servers*)
                   (incf (gethash server *servers*)))))
       (format *standard-output* "~&Started SPARQL endpoint at <~a>~%" endpoint)
