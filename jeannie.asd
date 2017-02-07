@@ -8,7 +8,8 @@
   :description "A wrapping of Jena for Armed Bear Common Lisp."
   :version "0.6.1"
   :defsystem-depends-on (abcl-asdf)
-  :depends-on (simple-date-time)
+  :depends-on (simple-date-time
+               alexandria)
   :components ((:module apache-jena :serial t :components
                         ((:mvn "org.apache.jena/jena-core/3.1.1")
                          (:mvn "org.apache.jena/jena-arq/3.1.1")))
