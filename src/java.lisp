@@ -23,10 +23,7 @@
 						file-input-stream)))
 	(verbose "Opened '~A' for read." file)
 	input-stream-reader)
-    ;;; XXX Fix java exception hierarchy
-    (java-throwable (e)
-	(error "Failed to load file '~S' because of throwable: ~A"
-	       file e))
-    (java-exception (e)
-	(error "Failed to load file '~S' because of exception: ~A"
-	       file e))))
+    (java:java-exception (e)
+      (error "Failed to load file '~S' because of throwable: ~A"
+             file e))))
+

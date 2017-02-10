@@ -6,7 +6,7 @@
 
 (asdf:defsystem jeannie
   :description "A wrapping of Jena for Armed Bear Common Lisp."
-  :version "0.6.1"
+  :version "0.6.2"
   :defsystem-depends-on (abcl-asdf)
   :depends-on (simple-date-time
                alexandria)

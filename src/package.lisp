@@ -12,8 +12,8 @@
 
    #:read-rdf 
 
-   ;;; TODO: 
-   #:*model* implement enough to not reference spcial
+   ;;; TODO:  implement enough to not reference spcial
+   #:*model* 
 
    #:parse
 
@@ -22,6 +22,8 @@
    #:note
 
    #:affirm #:snapshot
+
+   #:jstream
 
    #:create-memory-dataset #:create-persistent-dataset
 

@@ -47,9 +47,13 @@ Optionally specify the input via FORMAT, one of at least the set 'N3'
         (#"read" reader model input-stream base))))
   model)
 
-;;; introspect a Model
+;;; TODO: introspect a Model
 
-;;; (let ((i (#"listObjects" *model*)) ) (values (#"next" i) (#"next" i) (#"next" i) ))  --> com.hp.hpl.jena.rdf.model.impl.ResourceImpl
+#|
+(let ((i (#"listObjects" *model*)) ) (values (#"next" i) (#"next" i) (#"next" i) ))  
+
+  --> com.hp.hpl.jena.rdf.model.impl.ResourceImpl
+#|
 
 ;; implement me!
 ;; (defmacro jiterator-to-list (get-iterator model)
