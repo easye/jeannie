@@ -1,17 +1,15 @@
 (in-package :jeannie/test)
 
-(plan 2)
+(plan 1)
+(diag "Testing reading invalid Turtle statement from a string…")
 (let ((not-a-turtle-statement "not a turtle-statement"))
-  (ok
-   (jeannie:read-rdf not-a-turtle-statement))
-  (is-error
-   (jeannie:read-rdf not-a-turtle-statement :resignal-error t)
-   'java:java-exception))
+  (fail
+   (jeannie:read-rdf not-a-turtle-statement :format :n3)))
 
 (plan 2)
 (let ((path (asdf:system-relative-pathname :jeannie "t/eg/tests.n3")))
   (diag (format nil "Testing reading RDF from '~a'." path))
-  (let ((model (read-rdf path)))
+  (let ((model (jeannie:read-rdf path :format :n3)))
     (is (java:jclass-of model)
         "org.apache.jena.rdf.model.impl.ModelCom")
     (ok 
@@ -21,7 +19,7 @@
                 :collect (#"next" iterator))))))
 
 (plan 1)
-(diag "Testing reading RDF from string…")
+(diag "Testing reading valid RDF from string…")
 (let ((model (read-rdf "@prefix : <https://rdf.not.org/users/evenson/jeannie#> . :s :o :p .")))
   (is (java:jclass-of model)
       "org.apache.jena.rdf.model.impl.ModelCom"))
