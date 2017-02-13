@@ -3,13 +3,13 @@
 (defparameter *model* nil)
 
 (defgeneric read-rdf (filename &key
-                                 (format :rdf)
+                                 (format :rdf/xml)
                                  (model *model*)))
 
 (defmethod read-rdf ((buffer string)
                      &key
                        (resignal-error nil)
-                       (format :N3)
+                       (format :rdf/xml)
                        (model *model*))
   (unless model
     (setf model (#"createDefaultModel" 'ModelFactory)))
@@ -123,4 +123,15 @@ Optionally specify the input via FORMAT, one of at least the set 'N3'
                :collect (#"next" iterator))))
 
 
+(defun make-literal (value &key
+                             (type nil type-p)
+                             (model nil))
+  "Create a literal with VALUE of DATATYPE in MODEL."
+  (unless model
+    (setf model (#"createDefaultModel" 'ModelFactory)))
+  (values 
+   (#"createTypedLiteral" model value)
+   model))
 
+
+                      

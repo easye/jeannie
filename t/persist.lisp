@@ -9,7 +9,7 @@
       (path (ext:make-temp-directory)))
   (diag (format nil
                 "Asserting statement in persistent model at '~a'" path))
-  (let ((model (affirm subject predicate object :path path :namespace namespace)))
+  (let ((model (jeannie:affirm subject predicate object :path path :namespace namespace)))
     (ok model)
     (ok (= (#"size" model) 1))))
 

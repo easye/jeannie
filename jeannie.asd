@@ -50,7 +50,7 @@
   :depends-on (jeannie/server/fuseki))
 
 (asdf:defsystem jeannie/test
-  :version "0.7.0"
+  :version "0.7.1"
   :defsystem-depends-on (prove-asdf)
   :depends-on (jeannie
                jeannie/tdb
@@ -61,6 +61,9 @@
                (:module tdb :pathname "t/"
                         :depends-on (package)
                         :components ((:test-file "persist")))
+               (:module literals :pathname "t/"
+                        :depends-on (package)
+                        :components ((:test-file "literals")))
                (:module owl :pathname "t/"
                         :depends-on (package)
                         :components ((:test-file "owl-reasoner")))

@@ -5,9 +5,10 @@
 |#
 
 (defun affirm (subject property value
-               &key (path #p"/var/tmp/ds/")
+               &key
+                 (path #p"/var/tmp/ds/")
                  (namespace "http://example.org/jeannie#"))
-  "Affirm that SUBJECT has PROPERTY with VALUE
+  "Affirm that SUBJECT has PROPERTY with VALUE.
 
 Persist statement to tdb store at PATH, adding if it already exists. 
 
@@ -16,7 +17,7 @@ resource contention.  Under load, i.e. multiple writes, this strategy will degra
    (unless (probe-file path)
      (note "Ensuring directories exist for '~a'." path)
      (ensure-directories-exist path))
-  (let ((dataset (#"createDataset" 'TDBFactory (namestring (pathname path))))
+  (let ((dataset (create-persistent-dataset path))
         model s p)
     (unwind-protect
          (progn
@@ -27,7 +28,10 @@ resource contention.  Under load, i.e. multiple writes, this strategy will degra
            (#"addProperty" s p value)
            (#"commit" dataset))
       (#"end" dataset)))
-  (snapshot path))
+  (values
+   (snapshot path)
+   path
+   namespace))
 
 (defun snapshot (path)
   "Create a snapshot of the model for tdb store at PATH"

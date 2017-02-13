@@ -27,6 +27,8 @@
 
    #:create-memory-dataset #:create-persistent-dataset
 
+   #:make-literal
+
    #:list-namespaces #:list-objects #:list-subjects #:list-statements
 
    #:index))
