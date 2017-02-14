@@ -27,16 +27,18 @@
   (unless model
     (setf model (#"createDefaultModel" 'ModelFactory)))
   (with-open-file (s filename :direction :input)
-    (let ((input-stream (jstream s)) ;;; TODO close me (finally)
+    (let ((input-stream (jstream s)) 
           (reader (#"getReader" model (symbol-name format))))
-      (handler-case
-          (progn
-            (#"read" reader model input-stream base)
-            model)
-        (java:java-exception (e)
-          (note "Failed to deserialize ~a as ~a: ~a"
-                filename format e)
-          nil)))))
+      (unwind-protect
+           (handler-case
+               (progn
+                 (#"read" reader model input-stream base)
+                 model)
+             (java:java-exception (e)
+               (note "Failed to deserialize ~a as ~a: ~a"
+                     filename format e)
+               nil))
+        (#"close" input-stream)))))
 
 (defparameter *file-type-parser-hint*
   '(("n3" :n3)
@@ -59,7 +61,7 @@ If BASE is a string, it is used as the @base uri of relative uris in
 the read operation.  
 
 Optionally specify the input via FORMAT, one of at least the set 'N3'
-'RDF/XML' 'N-TRIPLE' 'TURTLE'.  The default is 'N3'."
+'RDF/XML' 'N-TRIPLE' 'TURTLE'.  The default is 'RDF/XML'."
   (unless model
     (setf model (#"createDefaultModel" 'ModelFactory)))
   (let* ((parsers '(:RDF/XML :N-TRIPLE :TRIPLE :N3))
