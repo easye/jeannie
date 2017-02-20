@@ -50,7 +50,7 @@
   :depends-on (jeannie/server/fuseki))
 
 (asdf:defsystem jeannie/test
-  :version "0.7.2"
+  :version "0.8.0"
   :defsystem-depends-on (prove-asdf)
   :depends-on (jeannie
                jeannie/tdb
@@ -61,7 +61,6 @@
                (:module tdb :pathname "t/"
                         :depends-on (package)
                         :components ((:test-file "persist")))
-               #+nil
                (:module literals :pathname "t/"
                         :depends-on (package)
                         :components ((:test-file "literals")))
