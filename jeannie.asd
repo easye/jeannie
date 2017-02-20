@@ -6,13 +6,13 @@
 
 (asdf:defsystem jeannie
   :description "A wrapping of Jena for Armed Bear Common Lisp."
-  :version "0.7.2"
+  :version "0.8.0"
   :defsystem-depends-on (abcl-asdf)
   :depends-on (simple-date-time
                alexandria)
   :components ((:module apache-jena :serial t :components
-                        ((:mvn "org.apache.jena/jena-core/3.1.1")
-                         (:mvn "org.apache.jena/jena-arq/3.1.1")))
+                        ((:mvn "org.apache.jena/jena-core/3.2.0")
+                         (:mvn "org.apache.jena/jena-arq/3.2.0")))
                (:module reasoner :depends-on (source)
                         :pathname "src/"
                         :components ((:file "reason")))
@@ -29,20 +29,20 @@
 
 (asdf:defsystem jeannie/tdb
   :description "Access to TDB triple store instances on local filesystem."
-  :version "0.1.0"
+  :version "0.3.0"
   :defsystem-depends-on (abcl-asdf)
   :depends-on (jeannie)
   :components ((:module tdb :pathname "src/" :components
-                        ((:mvn "org.apache.jena/jena-tdb/3.1.1")
+                        ((:mvn "org.apache.jena/jena-tdb/3.2.0")
                          (:file "tdb")))))
 
 (asdf:defsystem jeannie/server/fuseki
   :description "Use of Fuseki Embedded server for managing SPARQL endpoints."
-  :version "0.1.0"
+  :version "0.2.0"
   :defsystem-depends-on (abcl-asdf)
   :depends-on (jeannie/tdb)
   :components ((:module fuseki :components
-                        ((:mvn "org.apache.jena/jena-fuseki-embedded/2.4.1")))
+                        ((:mvn "org.apache.jena/jena-fuseki-embedded/2.5.0")))
                (:module server :depends-on (fuseki) :pathname "src/"
                         :components ((:file "server")))))
 
@@ -61,6 +61,7 @@
                (:module tdb :pathname "t/"
                         :depends-on (package)
                         :components ((:test-file "persist")))
+               #+nil
                (:module literals :pathname "t/"
                         :depends-on (package)
                         :components ((:test-file "literals")))
