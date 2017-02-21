@@ -1,2 +1,5 @@
-SELECT {?s ?p ?o}
-WHERE {?s ?p ?o}
+# Return all triples accessible
+SELECT ?s ?p ?o
+WHERE {
+  ?s ?p ?o .
+}
