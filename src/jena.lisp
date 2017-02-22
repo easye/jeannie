@@ -52,7 +52,7 @@
                        (model *model*))
   "Deserializes the contents of FILENAME returning the results in MODEL.
 
-If MODEL is nil, a new Jene in-memory model is created.  Otherwise the
+If MODEL is nil, a new Jena in-memory model is created.  Otherwise the
 read operation will add triples to MODEL.
 
 If BASE is a string, it is used as the @base uri of relative uris in
