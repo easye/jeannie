@@ -6,7 +6,7 @@
 
 (asdf:defsystem jeannie
   :description "A wrapping of Jena for Armed Bear Common Lisp."
-  :version "0.8.0"
+  :version "0.8.1"
   :defsystem-depends-on (abcl-asdf)
   :depends-on (simple-date-time
                alexandria)
@@ -24,6 +24,7 @@
                         :components ((:file "note")
                                      (:file "java")
                                      (:file "index")
+                                     (:file "model")
                                      (:file "jena"))))
   :in-order-to ((asdf:test-op (asdf:test-op jeannie/test))))
 
@@ -50,7 +51,7 @@
   :depends-on (jeannie/server/fuseki))
 
 (asdf:defsystem jeannie/test
-  :version "0.8.0"
+  :version "0.8.1"
   :defsystem-depends-on (prove-asdf)
   :depends-on (jeannie
                jeannie/tdb
@@ -61,6 +62,9 @@
                (:module tdb :pathname "t/"
                         :depends-on (package)
                         :components ((:test-file "persist")))
+               (:module model :pathname "t/"
+                        :depends-on (package)
+                        :components ((:test-file "model")))
                (:module literals :pathname "t/"
                         :depends-on (package)
                         :components ((:test-file "literals")))

@@ -5,6 +5,7 @@
   (#"getOWLReasoner" 'ReasonerRegistry))
 
 (defun inferred-model (model)
+  "Return the inferred model derived from MODEL."
   (let ((reasoner (get-reasoner)))
     (#"createInfModel" 'ModelFactory reasoner model)))
 

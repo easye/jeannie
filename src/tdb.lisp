@@ -17,7 +17,7 @@ resource contention.  Under load, i.e. multiple writes, this strategy will degra
    (unless (probe-file path)
      (note "Ensuring directories exist for '~a'." path)
      (ensure-directories-exist path))
-  (let ((dataset (create-persistent-dataset path))
+  (let ((dataset (ensure-persistent-dataset path))
         model s p)
     (unwind-protect
          (progn
@@ -36,7 +36,7 @@ resource contention.  Under load, i.e. multiple writes, this strategy will degra
 (defun snapshot (path)
   "Create a snapshot of the model for tdb store at PATH"
     
-  (let ((result (#"createDefaultModel" 'ModelFactory))
+  (let ((result (make-memory-model))
         (dataset (#"createDataset" 'TDBFactory (namestring (pathname path))))
         model)
     (unwind-protect
@@ -47,12 +47,14 @@ resource contention.  Under load, i.e. multiple writes, this strategy will degra
       (#"end" dataset))
     result))
 
-(defun create-memory-dataset ()
+(defun make-memory-dataset ()
   "Create a memory mapped triple dataset."
   (#"createTxnMem" 'DatasetFactory))                            
 
-(defun create-persistent-dataset (directory)
-  "Create a TDB triple store under DIRECTORY."
+(defun ensure-persistent-dataset (directory)
+  "Ensure that a tdb triple store exists under under DIRECTORY.
+
+A previously existing store will be re-opened in this jvm process."
   (let ((d (pathname directory)))
     (#"createDataset" 'TDBFactory (namestring d))))
 

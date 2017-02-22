@@ -23,9 +23,11 @@
 
    #:affirm #:snapshot
 
-   #:jstream
+   #:jstream ;; TODO: move me somewhere else
 
-   #:create-memory-dataset #:create-persistent-dataset
+   #:make-memory-model #:with-ensured-model
+
+   #:make-memory-dataset #:ensure-persistent-dataset
 
    #:make-literal
 
@@ -42,7 +44,7 @@
    
 (defpackage :org.not.djini
   (:use :cl :jeannie)
-  (:nicknames "DJINI")
+  (:nicknames :djini)
   (:export #:triple 
            #:construct  ;; make primitive RDF triple 
            

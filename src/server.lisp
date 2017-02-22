@@ -38,8 +38,8 @@ server.stop() ;
          (if directory
              (progn
                (format *standard-output* "~&Creating dataset under <file:~a>.~%" directory)
-               (create-persistent-dataset directory)
-             (create-memory-dataset))))
+               (ensure-persistent-dataset directory)
+             (make-memory-dataset))))
         (server-builder (#"create" 'FusekiEmbeddedServer)))
     (#"setPort" server-builder port)
     (#"add" server-builder path dataset)
