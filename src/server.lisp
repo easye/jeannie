@@ -31,20 +31,24 @@ server.stop() ;
 
 (defun start (&key
                 directory
-                (path "/ds")
-                (port 3330))
-  "Start a FusekiEmbeddedServer instance running on PORT with persistence under PATH"
+                (context-path "/ds")
+                (port 3330)
+                (with-statistics-p t))
+  "Start a FusekiEmbeddedServer instance running on PORT with persistence under DIRECTORY."
   (let ((dataset
          (if directory
              (progn
-               (format *standard-output* "~&Creating dataset under <file:~a>.~%" directory)
+               (note "Creating dataset under <file:~a>." directory)
                (ensure-persistent-dataset directory)
              (make-memory-dataset))))
         (server-builder (#"create" 'FusekiEmbeddedServer)))
     (#"setPort" server-builder port)
-    (#"add" server-builder path dataset)
+    (#"add" server-builder context-path dataset)
     (let ((server (#"build" server-builder))
-          (endpoint (format nil "http://127.0.0.1:~a~a" port path)))
+          (endpoint (format nil "http://127.0.0.1:~a~a/query"
+                            port context-path)))
+      (when with-statistics-p
+        (#"enableStats" server-builder java:+true+))
       (#"start" server)
       (if (not (gethash server *servers*))
           (setf (gethash server *servers*) 1)
@@ -52,14 +56,14 @@ server.stop() ;
             (warn "Inconsistent start on already running server instance ~a requested." server)
             (setf (gethash server *servers*)
                   (incf (gethash server *servers*)))))
-      (format *standard-output* "~&Started SPARQL endpoint at <~a>~%" endpoint)
+      (note "Started SPARQL endpoint at <~a>" endpoint)
       (values
        server
        endpoint))))
 
 (defun stop (server)
   "Stop an instance of a previously created Fuseki SERVER."
-  (note "~&Stopping Fuseki ~a instance with ~a outstanding instances."
+  (note "Stopping Fuseki ~a instance with ~a outstanding instances."
         server
         (gethash server *servers*))
   (#"stop" server)
