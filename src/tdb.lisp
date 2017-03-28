@@ -7,7 +7,7 @@
 (defun affirm (subject property value
                &key
                  (path #p"/var/tmp/ds/")
-                 (namespace "http://example.org/jeannie#"))
+                 (namespace "http://example.org/jeannie#" namespace-p))
   "Affirm that SUBJECT has PROPERTY with VALUE.
 
 Persist statement to tdb store at PATH, adding if it already exists. 
@@ -18,14 +18,21 @@ resource contention.  Under load, i.e. multiple writes, this strategy will degra
      (note "Ensuring directories exist for '~a'." path)
      (ensure-directories-exist path))
   (let ((dataset (ensure-persistent-dataset path))
-        model s p)
+        model s p v)
     (unwind-protect
          (progn
            (#"begin" dataset #"ReadWrite.WRITE")
            (setf model (#"getDefaultModel" dataset))
            (setf s (#"createResource" model subject))
-           (setf p (#"createProperty" model namespace property))
-           (#"addProperty" s p value)
+           (setf p
+                 (if (typep property 'ext:url-pathname)
+                     (create-property model property)
+                     (#"createProperty" model namespace property)))
+           (setf v
+                 (if (typep value 'ext:url-pathname)
+                     (namestring value)
+                     value))
+           (#"addProperty" s p v)
            (#"commit" dataset))
       (#"end" dataset)))
   (values

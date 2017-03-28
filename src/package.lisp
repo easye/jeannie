@@ -26,6 +26,7 @@
    #:jstream ;; TODO: move me somewhere else
 
    #:make-memory-model #:with-ensured-model
+   #:create-property
 
    #:make-memory-dataset #:ensure-persistent-dataset
 

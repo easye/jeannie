@@ -17,5 +17,18 @@
     (ok (jeannie:list-objects model))
     (ok (jeannie:list-namespaces model))))
 
+
+(let (model)
+  (jeannie:with-ensured-model (model)
+    (let ((properties '(#p"http://example.org/ns#property"
+                        #p"http://example.org/ns/as/directories/property"
+                        #p"http://example.org/ns/as/directories#property")))
+      (plan (length properties))
+      (dolist (property properties)
+        (like
+         (java:jclass-of
+          (jeannie:create-property model property))
+         "org.apache.jena.rdf.model.impl.PropertyImpl")))))
+  
 (finalize)
 

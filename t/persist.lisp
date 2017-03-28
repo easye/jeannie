@@ -1,17 +1,33 @@
 (in-package :jeannie/test)
 
-(plan 2)
-
-(let ((subject "http://example.com/person/doe/jane")
-      (namespace "http://xmlns.com/foaf/0.1/")
-      (predicate "name")
-      (object "Jane Doe")
+(let ((statements '(("http://example.com/person/doe/jane"
+                     ("http://xmlns.com/foaf/0.1/" "name")
+                     "Jane Doe")
+                    ("http://example.com/person/doe/jane"
+                     #p"http://xmlns.com/foaf/0.1/"
+                     "name")))
       (path (ext:make-temp-directory)))
   (diag (format nil
                 "Asserting statement in persistent model at '~a'" path))
-  (let ((model (jeannie:affirm subject predicate object :path path :namespace namespace)))
-    (ok model)
-    (ok (= (#"size" model) 1))))
+  (plan (* (length statements) 2))
+  (loop
+     :with affirmed = 0
+     :for (subject predicate object) :in statements
+     :doing (let ((model
+                   (if (consp predicate)
+                       (let ((namespace (first predicate))
+                             (predicate (second predicate)))
+                         (jeannie:affirm subject
+                                         predicate
+                                         object
+                                         :path path :namespace namespace))
+                       (jeannie:affirm subject
+                                       predicate
+                                       object
+                                       :path path))))
+              (ok model)
+              (incf affirmed)
+              (ok (= (#"size" model) affirmed)))))
 
 (finalize)
 
