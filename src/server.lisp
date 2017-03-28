@@ -31,9 +31,9 @@ server.stop() ;
 
 (defun start (&key
                 directory
-                (path "/ds")
+                (context-path "/ds")
                 (port 3330))
-  "Start a FusekiEmbeddedServer instance running on PORT with persistence under PATH"
+  "Start a FusekiEmbeddedServer instance running on PORT with persistence under DIRECTORY served from CONTEXT-PATH."
   (let ((dataset
          (if directory
              (progn
@@ -42,9 +42,9 @@ server.stop() ;
              (make-memory-dataset))))
         (server-builder (#"create" 'FusekiEmbeddedServer)))
     (#"setPort" server-builder port)
-    (#"add" server-builder path dataset)
+    (#"add" server-builder context-path dataset)
     (let ((server (#"build" server-builder))
-          (endpoint (format nil "http://127.0.0.1:~a~a" port path)))
+          (endpoint (format nil "http://127.0.0.1:~a~a" port context-path)))
       (#"start" server)
       (if (not (gethash server *servers*))
           (setf (gethash server *servers*) 1)

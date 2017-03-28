@@ -6,7 +6,7 @@
 
 (asdf:defsystem jeannie
   :description "A wrapping of Jena for Armed Bear Common Lisp."
-  :version "0.8.1"
+  :version "0.9.0"
   :defsystem-depends-on (abcl-asdf)
   :depends-on (simple-date-time
                alexandria)
@@ -30,7 +30,7 @@
 
 (asdf:defsystem jeannie/tdb
   :description "Access to TDB triple store instances on local filesystem."
-  :version "0.3.0"
+  :version "0.4.0"
   :defsystem-depends-on (abcl-asdf)
   :depends-on (jeannie)
   :components ((:module tdb :pathname "src/" :components
@@ -39,7 +39,7 @@
 
 (asdf:defsystem jeannie/server/fuseki
   :description "Use of Fuseki Embedded server for managing SPARQL endpoints."
-  :version "0.2.0"
+  :version "0.3.0"
   :defsystem-depends-on (abcl-asdf)
   :depends-on (jeannie/tdb)
   :components ((:module fuseki :components
@@ -51,7 +51,7 @@
   :depends-on (jeannie/server/fuseki))
 
 (asdf:defsystem jeannie/test
-  :version "0.8.1"
+  :version "0.9.0"
   :defsystem-depends-on (prove-asdf)
   :depends-on (jeannie
                jeannie/tdb
