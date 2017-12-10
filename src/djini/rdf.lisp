@@ -12,7 +12,27 @@
 (defun construct ()
   (init (make-triple)))
 
-(defun write-rdf (json)
-  (error "Unimplemented WRITE-RDF."))
+(defgeneric write-rdf (destination source))
+
+(defmethod write-rdf (destination (sexp pathname))
+  (declare (ignore destination))
+  (error "Unimplemented."))
+
+(defmethod write-rdf (destination (json string))
+  (declare (ignore destination))
+  (let ((jsown (jsown:parse json))
+        (subject "_:1"))
+    (declare (ignore subject))
+    jsown
+    #+(or)
+    (loop
+       :for obj in jsown
+       :collecting (list subject
+                         (if (consp obj)
+                             (loop :for o :across obj
+                                :collecting (stringify o))
+                             obj)))))
+    
+    
 
 
