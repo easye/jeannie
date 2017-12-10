@@ -3,7 +3,10 @@
   :components ((:module package
                         :pathname "src/djini/"
                         :components ((:file "package")))
-               (:module src :depends-on (package)
+               (:module util :depends-on (package)
+                        :pathname "src/djini/"
+                        :components ((:file "util")))
+               (:module src :depends-on (util)
                         :pathname "src/djini/"
                         :components ((:file "djini"))))
   :in-order-to ((asdf:test-op (asdf:test-op djini/t))))

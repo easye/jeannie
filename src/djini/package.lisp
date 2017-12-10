@@ -3,6 +3,9 @@
   (:nicknames :org.not.djini "DJINI")
   (:export
 
+   #:stringify
+   #:make-new-subject
+
    #:write-rdf
 
    #:triple 

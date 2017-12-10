@@ -12,27 +12,49 @@
 (defun construct ()
   (init (make-triple)))
 
-(defgeneric write-rdf (destination source))
+(defgeneric write-rdf (destination source subject)
+  (:documentation "Emit textual represenation of SOURCE to DESTINATION with SUBJECT."))
 
-(defmethod write-rdf (destination (sexp pathname))
-  (declare (ignore destination))
+(defmethod write-rdf (destination (sexp pathname) subject)
+  (declare (ignore destination subject))
   (error "Unimplemented."))
 
-(defmethod write-rdf (destination (json string))
-  (declare (ignore destination))
+(defmethod write-rdf (destination (json string) subject)
   (let ((jsown (jsown:parse json))
         (subject "_:1"))
-    (declare (ignore subject))
-    jsown
-    #+(or)
-    (loop
-       :for obj in jsown
-       :collecting (list subject
-                         (if (consp obj)
-                             (loop :for o :across obj
-                                :collecting (stringify o))
-                             obj)))))
-    
+    (write-rdf destination jsown subject)))
+
+(defvar *last-object* nil)
+
+(defmethod write-rdf (destination (object cons) subject)
+  (push object *last-object*)
+  (cond
+    ((and
+      (consp object)
+      (consp (cdr object))
+      (= (length object) 1))
+     (write-rdf destination (first object) subject))
+    ((and
+      (consp object)
+      (not (consp (cdr object))))
+     (list 
+      subject (car object) (cdr object)))
+    (t 
+     (loop
+        :for pair :in object
+        :if (consp pair)
+        :collect (write-rdf destination
+                            pair
+                            (make-new-subject subject))
+        :else
+        :when (not (eq pair :obj))
+        :collect pair))))
+        
+
+
+
+
+                              
     
 
 
