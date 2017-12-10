@@ -1,5 +1,5 @@
 ;;; Basic RDF triple, as array sequence
-(in-package :org.not.djini)
+(in-package djini)
 
 (defstruct triple 
   (data))
@@ -10,5 +10,9 @@
   (setf triple-data (make-array 3)))
 
 (defun construct ()
-	(org.not.djini::init (make-triple)))
+  (init (make-triple)))
+
+(defun write-rdf (json)
+  (error "Unimplemented WRITE-RDF."))
+
 

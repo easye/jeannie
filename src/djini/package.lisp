@@ -1,13 +1,17 @@
-(defpackage :djini
-  (:use :cl :jeannie)
+(defpackage djini
+  (:use :cl)
   (:nicknames :org.not.djini "DJINI")
-  (:export #:triple 
-		   #:construct  ;; construct a primitive RDF triple in memory
+  (:export
 
-		   #:*model* ;; special for current model being processed
+   #:write-rdf
 
-		   #:persist
-		   #:start-peer)) ;; unimplemented
+   #:triple 
+   #:construct  ;; construct a primitive RDF triple in memory
+
+   #:*model* ;; special for current model being processed
+           
+   #:persist
+   #:start-peer)) ;; unimplemented
 
 
 

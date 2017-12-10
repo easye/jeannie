@@ -1,4 +1,4 @@
-(in-package :org.not.djini)
+(in-package djini)
 
 (defun start-peer ()
   (warn "Unimplemented.")
