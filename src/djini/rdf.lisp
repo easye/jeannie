@@ -42,10 +42,11 @@
     (t 
      (loop
         :for pair :in object
+        :with subject = (make-new-subject subject)
         :if (consp pair)
         :collect (write-rdf destination
                             pair
-                            (make-new-subject subject))
+                            subject)
         :else
         :when (not (eq pair :obj))
         :collect pair))))
