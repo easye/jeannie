@@ -16,4 +16,5 @@
      (error "Don't know how stringify ~a." thing))))
   
 (defun make-new-subject (parent)
-  (format nil "~a/~a" parent (stringify (gensym))))
+  "Return a string representing a new blank node within a 'namespace' referencing PARENT."
+  (format nil "~a_~a" parent (stringify (gensym))))

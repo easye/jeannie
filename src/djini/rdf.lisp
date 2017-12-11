@@ -6,8 +6,10 @@
 ;; :type array))
 ;; (array (0 2))))
 
+;;; FIXME
 (defun init (triple)
-  (setf triple-data (make-array 3)))
+  (unless triple
+    (make-array 3)))
 
 (defun construct ()
   (init (make-triple)))
@@ -15,19 +17,20 @@
 (defgeneric write-rdf (destination source subject)
   (:documentation "Emit textual represenation of SOURCE to DESTINATION with SUBJECT."))
 
-(defmethod write-rdf (destination (sexp pathname) subject)
+(defmethod write-rdf (destination (file-containing-sexp pathname) subject)
   (declare (ignore destination subject))
   (error "Unimplemented."))
 
 (defmethod write-rdf (destination (json string) subject)
+  (declare (ignore subject))
   (let ((jsown (jsown:parse json))
-        (subject "_:1"))
-    (write-rdf destination jsown subject)))
+        (child-subject (format nil "_:~a" (random (expt 3 17)))))
+    (write-rdf destination jsown child-subject)))
 
-(defvar *last-object* nil)
+(defvar *last-object* nil) ;;; DEBUG
 
 (defmethod write-rdf (destination (object cons) subject)
-  (push object *last-object*)
+  (push object *last-object*) ;;; DEBUG
   (cond
     ((and
       (consp object)

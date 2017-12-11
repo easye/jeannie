@@ -30,5 +30,6 @@
                          (uiop:symbol-call :prove-asdf 'run-test-system c))
   :components ((:module "src/djini/t"
                         :components
-                        ((:file "serialize")))))
+                        ((:test-file "subject")
+                         (:test-file "serialize")))))
 
