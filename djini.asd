@@ -25,6 +25,7 @@
 (defsystem djini/t
   :defsystem-depends-on (prove-asdf)
   :depends-on (prove
+               djini
                djini/json)
   :perform (asdf:test-op (op c)
                          (uiop:symbol-call :prove-asdf 'run-test-system c))

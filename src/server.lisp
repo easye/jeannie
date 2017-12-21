@@ -38,24 +38,24 @@ server.stop() ;
          (if directory
              (progn
                (format *standard-output* "~&Creating dataset under <file:~a>.~%" directory)
-               (ensure-persistent-dataset directory)
+               (ensure-persistent-dataset directory))
              (make-memory-dataset))))
-        (server-builder (#"create" 'FusekiEmbeddedServer)))
-    (#"setPort" server-builder port)
-    (#"add" server-builder context-path dataset)
-    (let ((server (#"build" server-builder))
-          (endpoint (format nil "http://127.0.0.1:~a~a" port context-path)))
-      (#"start" server)
-      (if (not (gethash server *servers*))
-          (setf (gethash server *servers*) 1)
-          (progn
-            (warn "Inconsistent start on already running server instance ~a requested." server)
-            (setf (gethash server *servers*)
-                  (incf (gethash server *servers*)))))
-      (format *standard-output* "~&Started SPARQL endpoint at <~a>~%" endpoint)
-      (values
-       server
-       endpoint))))
+    (let ((builder (java:chain (#"create" 'FusekiEmbeddedServer)
+                               ("setPort" port)
+                               ("add" context-path dataset))))
+      (let ((server (#"build" builder))
+            (endpoint (format nil "http://127.0.0.1:~a~a" port context-path)))
+        (#"start" server)
+        (if (not (gethash server *servers*))
+            (setf (gethash server *servers*) 1)
+            (progn
+              (warn "Inconsistent start on already running server instance ~a requested." server)
+              (setf (gethash server *servers*)
+                    (incf (gethash server *servers*)))))
+        (format *standard-output* "~&Started SPARQL endpoint at <~a>~%" endpoint)
+        (values
+         server
+         endpoint)))))
 
 (defun stop (server)
   "Stop an instance of a previously created Fuseki SERVER."

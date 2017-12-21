@@ -6,6 +6,7 @@
 
 (defparameter *model* nil)
 
+#+(or)
 (defun persist (rdf)
   (append *model*
 		  (loop :for statement :in 

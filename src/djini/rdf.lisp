@@ -14,29 +14,30 @@
 (defun construct ()
   (init (make-triple)))
 
-(defgeneric write-rdf (destination source subject)
+(defgeneric emit-rdf (destination source subject)
   (:documentation "Emit textual represenation of SOURCE to DESTINATION with SUBJECT."))
 
-(defmethod write-rdf (destination (file-containing-sexp pathname) subject)
-  (declare (ignore destination subject))
-  (error "Unimplemented."))
+(defmethod emit-rdf (destination (input-file-containing-sexp pathname) subject)
+  (let ((sexp (with-open-file (o input-file-containing-sexp :direction :input)
+                (read o))))
+    (emit-rdf destination sexp subject)))
 
-(defmethod write-rdf (destination (json string) subject)
+(defmethod emit-rdf (destination (json string) subject)
   (declare (ignore subject))
   (let ((jsown (jsown:parse json))
         (child-subject (format nil "_:~a" (random (expt 3 17)))))
-    (write-rdf destination jsown child-subject)))
+    (emit-rdf destination jsown child-subject)))
 
 (defvar *last-object* nil) ;;; DEBUG
 
-(defmethod write-rdf (destination (object cons) subject)
+(defmethod emit-rdf (destination (object cons) subject)
   (push object *last-object*) ;;; DEBUG
   (cond
     ((and
       (consp object)
       (consp (cdr object))
       (= (length object) 1))
-     (write-rdf destination (first object) subject))
+     (emit-rdf destination (first object) subject))
     ((and
       (consp object)
       (not (consp (cdr object))))
@@ -47,7 +48,7 @@
         :for pair :in object
         :with subject = (make-new-subject subject)
         :if (consp pair)
-        :collect (write-rdf destination
+        :collect (emit-rdf destination
                             pair
                             subject)
         :else

@@ -1,18 +1,16 @@
 ;;; -*- Mode: LISP; Syntax: COMMON-LISP -*-
 #-abcl (error "You need the Bear for this one")
 
-(require :asdf)
-(in-package :cl-user)
-
-(asdf:defsystem jeannie
+(defsystem jeannie
   :description "A wrapping of Jena for Armed Bear Common Lisp."
   :version "0.9.0"
   :defsystem-depends-on (abcl-asdf)
   :depends-on (simple-date-time
                alexandria)
   :components ((:module apache-jena :serial t :components
-                        ((:mvn "org.apache.jena/jena-core/3.2.0")
-                         (:mvn "org.apache.jena/jena-arq/3.2.0")))
+                        ((:mvn "org.apache.jena/jena-base/3.6.0")
+                         (:mvn "org.apache.jena/jena-core/3.6.0")
+                         (:mvn "org.apache.jena/jena-arq/3.6.0")))
                (:module reasoner :depends-on (source)
                         :pathname "src/"
                         :components ((:file "reason")))
@@ -28,29 +26,31 @@
                                      (:file "jena"))))
   :in-order-to ((asdf:test-op (asdf:test-op jeannie/test))))
 
-(asdf:defsystem jeannie/tdb
+(defsystem jeannie/tdb
   :description "Access to TDB triple store instances on local filesystem."
-  :version "0.4.0"
+  :version "3.5.0"
   :defsystem-depends-on (abcl-asdf)
   :depends-on (jeannie)
   :components ((:module tdb :pathname "src/" :components
-                        ((:mvn "org.apache.jena/jena-tdb/3.2.0")
+                        ((:mvn "org.apache.jena/jena-tdb/3.6.0")
                          (:file "tdb")))))
 
 (asdf:defsystem jeannie/server/fuseki
   :description "Use of Fuseki Embedded server for managing SPARQL endpoints."
-  :version "0.3.0"
+  :version "3.6.0"
   :defsystem-depends-on (abcl-asdf)
   :depends-on (jeannie/tdb)
   :components ((:module fuseki :components
-                        ((:mvn "org.apache.jena/jena-fuseki-embedded/2.5.0")))
+                        ((:mvn "org.apache.jena/jena-fuseki-embedded/3.6.0")
+                         (:mvn "org.eclipse.jetty/jetty-util/jar:9.4.8.v20171121")
+                         (:mvn "org.eclipse.jetty/jetty-server/9.4.8.v20171121")))
                (:module server :depends-on (fuseki) :pathname "src/"
                         :components ((:file "server")))))
 
-(asdf:defsystem jeannie/server
+(defsystem jeannie/server
   :depends-on (jeannie/server/fuseki))
 
-(asdf:defsystem jeannie/test
+(defsystem jeannie/test
   :version "0.9.0"
   :defsystem-depends-on (prove-asdf)
   :depends-on (jeannie

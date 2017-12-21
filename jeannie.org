@@ -65,21 +65,31 @@ Report via issues at <https://bitbucket.org/easye/jeannie>.
 What invoking ```fuseki-server``` boils down to:
 
 *** JSS
-```
+#+BEGIN_EXAMPLE
 (#"main" 'org.apache.jena.fuseki.cmd.FusekiCmd (java:jarray-from-list '("")))
 ; Evaluation aborted on #<JAVA-EXCEPTION java.lang.NoClassDefFoundError: org/apache/jena/fuseki/cmd/FusekiCmd$FusekiCmdInner {1AE2263D}>.
-``` 
+
+#+END_EXAMPLE
+
 
 **** JAVA
-```
+#+BEGIN_EXAMPLE
 (java:jstatic "main" "org.apache.jena.fuseki.cmd.FusekiCmd" (java:jarray-from-list '("")))
                   
 ; Evaluation aborted on #<JAVA-EXCEPTION java.lang.NoClassDefFoundError: org/apache/jena/fuseki/cmd/FusekiCmd$FusekiCmdInner {2CB152D}>.
-```
+
+#+END_EXAMPLE
+
+** Installing artifacts manually
+#+BEGIN_EXAMPLE
+mvn org.apache.maven.plugins:maven-dependency-plugin:2.1:get \
+    -DrepoUrl=http://download.java.net/maven/2/ \
+    -Dartifact=robo-guice:robo-guice:0.4-SNAPSHOT
+#+END_EXAMPLE
 
 * Colophon
 #+BEGIN_EXAMPLE
 Mark <evenson.not.org@gmail.com>
 Created: 2012-Jan-21 
-Revised: <2017-12-11 Mon 10:55>
+Revised: <2017-12-21 Thu 13:26>
 #+END_EXAMPLE

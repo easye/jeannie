@@ -42,17 +42,6 @@
    #:start #:stop
    ;;; TODO: implement enough to not reference spcial
    #:running-instances #:*servers*)) 
-   
-(defpackage :org.not.djini
-  (:use :cl :jeannie)
-  (:nicknames :djini)
-  (:export #:triple 
-           #:construct  ;; make primitive RDF triple 
-           
-           #:*model*
-           
-           #:persist
-           #:start-peer)) ;; unimplemented
 
 
 

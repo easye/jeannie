@@ -6,7 +6,7 @@
    #:stringify
    #:make-new-subject
 
-   #:write-rdf
+   #:emit-rdf
 
    #:triple 
    #:construct  ;; construct a primitive RDF triple in memory
