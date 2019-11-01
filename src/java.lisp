@@ -18,8 +18,8 @@
   "For a pathname named in FILE, return a Java java.io.InputStreamReader"
   (handler-case
       (let* ((pathname (namestring (merge-pathnames file)))
-	     (file-input-stream (jss:new 'FileInputStream pathname))
-	     (input-stream-reader (jss:new 'InputStreamReader
+	     (file-input-stream (jss:new 'java.io.FileInputStream pathname))
+	     (input-stream-reader (jss:new 'java.io.InputStreamReader
 						file-input-stream)))
 	(verbose "Opened '~A' for read." file)
 	input-stream-reader)
