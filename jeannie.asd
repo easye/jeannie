@@ -74,6 +74,9 @@
                (:module sparql :pathname "t/"
                         :depends-on (package)
                         :components ((:test-file "sparql")))
+               (:module json-ld :pathname "t/"
+                        :depends-on (package)
+                        :components ((:test-file "json-ld")))
                (:module t :depends-on (package)
                         :components ((:test-file "jeannie"))))
   :description "Test system for jeannie"

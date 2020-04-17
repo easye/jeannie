@@ -14,16 +14,34 @@
      (format *verbose* (funcall (lambda() (format nil ,message ,@parameters))))
      (finish-output *verbose*)))
 
-(defun jstream (file)
-  "For a pathname named in FILE, return a Java java.io.InputStreamReader"
+(defun jstream (thing)
+  "For THING return a Java java.io.InputStreamReader
+
+THING can be a URL-PATHNAME, PATHNAME or a open stream"
   (handler-case
-      (let* ((pathname (namestring (merge-pathnames file)))
-	     (file-input-stream (jss:new 'java.io.FileInputStream pathname))
-	     (input-stream-reader (jss:new 'java.io.InputStreamReader
-						file-input-stream)))
-	(verbose "Opened '~A' for read." file)
-	input-stream-reader)
+      (let ((input-stream
+              (typecase thing
+                (ext:url-pathname
+                 (input-stream-from-uri thing))
+                (system:url-stream
+                 (#"getInputStream" thing))
+                (t
+                 (jss:new 'java.io.FileInputStream (namestring thing))))))
+        (unless input-stream
+          (error "Not able to get a java.io.InputStream from ~a" thing))
+	(verbose "Opened '~A' for read." thing)
+        (jss:new 'java.io.InputStreamReader input-stream))
     (java:java-exception (e)
-      (error "Failed to load file '~S' because of throwable: ~A"
-             file e))))
+      (error "Failed to load '~S' because of throwable: ~A"
+             thing e))))
+
+(defun input-stream-from-uri (uri)
+  (let ((url-stream (SYSTEM:MAKE-FILE-STREAM (pathname uri)
+                                             (namestring uri)
+                                             'character :input nil :default)))
+    (handler-case
+        (#"getInputStream" url-stream)
+      (java:java-exception (e)
+        (error "Failed to open URI '~s' due to implementation missing an unreleased feature URLStream.getInputStream()")))))
+
 
