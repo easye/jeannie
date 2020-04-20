@@ -15,12 +15,19 @@
   :depends-on (djini
                stagger))
 
-(defsystem djini/json
+(defsystem djini/model
   :depends-on (djini
                jsown)
+  :components ((:module rdf
+                :pathname "src/djini/"
+                :components ((:file "rdf")))))
+
+(defsystem djini/model/json-ld
+  :depends-on (djini/model
+               cl-json-ld)
   :components ((:module source
-                        :pathname "src/djini/"
-                        :components ((:file "rdf")))))
+                :pathname "src/djini/"
+                :components ((:file "json-ld")))))
 
 (defsystem djini/t
   :defsystem-depends-on (prove-asdf)
@@ -33,4 +40,6 @@
                         :components
                         ((:test-file "subject")
                          (:test-file "serialize")))))
+
+
 

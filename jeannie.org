@@ -1,14 +1,23 @@
-* Jeannie/Djini
+* Jeannie: Working with RDF in Common Lisp via JSON-LD
 
+<https://bitbucket.org/easye/jeannie/>
+<https://gitlab.common-lisp.net/mevenson/jeannie/>
+<https://github.com/easye/jeannie/>
+
+** Jeannie
 
 Jeannie provides an encapsulation of Apache Jena in Common Lisp via
 direct manipulation of Maven binary POM artifacts via an ~ABCL~
 runtime <http://abcl.org>.
 
+** Djini
+
 Djini prototypes scaffolding for transcribing syntaxes represented in
 Common Lisp into serialized N3 triples that can then be placed in RDF
 stores.  Currently only a prototype for serializing JSOWN object
-structures exists in a rudimentary form.
+structures exists in a rudimentary form.  Includes a speculative
+DJINI/MODEL/JSON-LD component for round-tripping through Javascript
+object notation.
 
 ** Installation
 
@@ -91,5 +100,5 @@ mvn org.apache.maven.plugins:maven-dependency-plugin:2.1:get \
 #+BEGIN_EXAMPLE
 Mark <evenson.not.org@gmail.com>
 Created: 2012-Jan-21 
-Revised: <2017-12-21 Thu 13:26>
+Revised: <2020-04-20 Mon 13:17>
 #+END_EXAMPLE
