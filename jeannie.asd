@@ -3,14 +3,14 @@
 
 (defsystem jeannie
   :description "A wrapping of Jena for Armed Bear Common Lisp."
-  :version "0.9.0"
+  :version "0.10.0"
   :defsystem-depends-on (abcl-asdf)
   :depends-on (simple-date-time
                alexandria)
   :components ((:module apache-jena :serial t :components
-                        ((:mvn "org.apache.jena/jena-base/3.6.0")
-                         (:mvn "org.apache.jena/jena-core/3.6.0")
-                         (:mvn "org.apache.jena/jena-arq/3.6.0")))
+                        ((:mvn "org.apache.jena/jena-base/3.17.0")
+                         (:mvn "org.apache.jena/jena-core/3.17.0")
+                         (:mvn "org.apache.jena/jena-arq/3.17.0")))
                (:module reasoner :depends-on (source)
                         :pathname "src/"
                         :components ((:file "reason")))
@@ -32,7 +32,7 @@
   :defsystem-depends-on (abcl-asdf)
   :depends-on (jeannie)
   :components ((:module tdb :pathname "src/" :components
-                        ((:mvn "org.apache.jena/jena-tdb/3.6.0")
+                        ((:mvn "org.apache.jena/jena-tdb/3.17.0")
                          (:file "tdb")))))
 
 (asdf:defsystem jeannie/server/fuseki
@@ -41,8 +41,11 @@
   :defsystem-depends-on (abcl-asdf)
   :depends-on (jeannie/tdb)
   :components ((:module fuseki :components
-                        ((:mvn "org.apache.jena/jena-fuseki-embedded/3.6.0")
+                        ((:mvn "org.apache.jena/jena-fuseki-main/3.17.0")
+			 (:mvn "org.apache.jena/jena-fuseki-webapp/3.17.0")
+			 #+(or)
                          (:mvn "org.eclipse.jetty/jetty-util/jar:9.4.8.v20171121")
+			 #+(or)
                          (:mvn "org.eclipse.jetty/jetty-server/9.4.8.v20171121")))
                (:module server :depends-on (fuseki) :pathname "src/"
                         :components ((:file "server")))))

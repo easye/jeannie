@@ -40,7 +40,7 @@ server.stop() ;
                (format *standard-output* "~&Creating dataset under <file:~a>.~%" directory)
                (ensure-persistent-dataset directory))
              (make-memory-dataset))))
-    (let ((builder (java:chain (#"create" 'FusekiEmbeddedServer)
+    (let ((builder (java:chain (#"create" 'FusekiServer)
                                ("setPort" port)
                                ("add" context-path dataset))))
       (let ((server (#"build" builder))
