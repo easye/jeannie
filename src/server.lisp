@@ -41,7 +41,7 @@ server.stop() ;
                (ensure-persistent-dataset directory))
              (make-memory-dataset))))
     (let ((builder (java:chain (#"create" 'FusekiServer)
-                               ("setPort" port)
+                               ("port" port)
                                ("add" context-path dataset))))
       (let ((server (#"build" builder))
             (endpoint (format nil "http://127.0.0.1:~a~a" port context-path)))
