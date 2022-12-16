@@ -3,7 +3,7 @@
 
 (defsystem jeannie
   :description "A wrapping of Jena for Armed Bear Common Lisp."
-  :version "0.11.0"
+  :version "0.12.0"
   :defsystem-depends-on (abcl-asdf)
   :depends-on (simple-date-time
                alexandria)
@@ -50,7 +50,7 @@
   :depends-on (jeannie/server/fuseki))
 
 (defsystem jeannie/test
-  :version "0.11.0"
+  :version "0.12.0"
   :defsystem-depends-on (prove-asdf)
   :depends-on (jeannie
                jeannie/tdb
