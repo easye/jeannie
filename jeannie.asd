@@ -64,6 +64,9 @@
                (:module model :pathname "t/"
                         :depends-on (package)
                         :components ((:test-file "model")))
+               (:module n3 :pathname "t/"
+                        :depends-on (package)
+                        :components ((:test-file "abcl")))
                (:module literals :pathname "t/"
                         :depends-on (package)
                         :components ((:test-file "literals")))
