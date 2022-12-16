@@ -22,14 +22,17 @@
          (#"createRemote" 'UpdateExecutionFactory update-query uri))
         (diag (format nil "Testing SPARQL query '~a'." query-text))
         (plan 2)
-        (let ((query-execution (#"sparqlService" 'QueryExecutionFactory
+        (let ((query-execution
+                (ignore-errors (#"sparqlService" 'QueryExecutionFactory
                                                  uri
                                                  query-text
-                                                 (#"createDefault" 'org.apache.http.impl.client.HttpClients))))
-          (ok query-execution)
+                                                 (#"createDefault" 'org.apache.http.impl.client.HttpClients)))))
+          (ok query-execution
+              "Able to query SPARQL from current execution factory…") 
           (is-error 
            (let ((result-set (#"execSelect" query-execution)))
-             (ok result-set))
+             (ok result-set
+                 "Able to select from SPARQL query…"))
            t))))
     (plan 1)
     (diag "Stopping SPARQL endpoint.")
