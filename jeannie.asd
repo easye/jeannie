@@ -3,14 +3,14 @@
 
 (defsystem jeannie
   :description "A wrapping of Jena for Armed Bear Common Lisp."
-  :version "0.12.0"
+  :version "0.13.0"
   :defsystem-depends-on (abcl-asdf)
   :depends-on (simple-date-time
                alexandria)
   :components ((:module apache-jena :serial t :components
-                        ((:mvn "org.apache.jena/jena-base/4.6.1")
-                         (:mvn "org.apache.jena/jena-core/4.6.1")
-                         (:mvn "org.apache.jena/jena-arq/4.6.1")))
+                        ((:mvn "org.apache.jena/jena-base/4.7.0")
+                         (:mvn "org.apache.jena/jena-core/4.7.0")
+                         (:mvn "org.apache.jena/jena-arq/4.7.0")))
                (:module reasoner :depends-on (source)
                         :pathname "src/"
                         :components ((:file "reason")))
@@ -32,17 +32,17 @@
   :defsystem-depends-on (abcl-asdf)
   :depends-on (jeannie)
   :components ((:module tdb :pathname "src/" :components
-                        ((:mvn "org.apache.jena/jena-tdb/4.6.1")
+                        ((:mvn "org.apache.jena/jena-tdb/4.7.0")
                          (:file "tdb")))))
 
 (asdf:defsystem jeannie/server/fuseki
   :description "Use of Fuseki Embedded server for managing SPARQL endpoints."
-  :version "3.6.0"
+  :version "4.7.0"
   :defsystem-depends-on (abcl-asdf)
   :depends-on (jeannie/tdb)
   :components ((:module fuseki :components
-                        ((:mvn "org.apache.jena/jena-fuseki-main/4.6.1")
-			 (:mvn "org.apache.jena/jena-fuseki-webapp/4.6.1")))
+                        ((:mvn "org.apache.jena/jena-fuseki-main/4.7.0")
+			 (:mvn "org.apache.jena/jena-fuseki-fulljar/4.7.0")))
                (:module server :depends-on (fuseki) :pathname "src/"
                         :components ((:file "server")))))
 
@@ -50,7 +50,7 @@
   :depends-on (jeannie/server/fuseki))
 
 (defsystem jeannie/test
-  :version "0.12.0"
+  :version "0.13.0"
   :defsystem-depends-on (prove-asdf)
   :depends-on (jeannie
                jeannie/tdb
