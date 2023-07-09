@@ -153,8 +153,10 @@ be returned as opposed to their string representation."
 Optionally relativize URIs to NAMESPACE-BASE."
   (unless (pathnamep path)
     (setf path (pathname path)))
-  (let* ((file
-           (jss:new 'File (namestring path)))
+  (let* ((file-uri
+           (jss:new 'java.net.URI (namestring path)))
+         (file
+           (jss:new 'File file-uri))
          (writer
            (jss:new 'FileWriter file)))
     (if namespace-base
