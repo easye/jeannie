@@ -146,5 +146,25 @@ be returned as opposed to their string representation."
      model)))
 
 
+(defun write-rdf (model path
+                  &key (format "TTL") namespace-base)
+  "Serialize model to PATH with FORMAT
+
+Optionally relativize URIs to NAMESPACE-BASE."
+  (unless (pathnamep path)
+    (setf path (pathname path)))
+  (let* ((file
+           (jss:new 'File (namestring path)))
+         (writer
+           (jss:new 'FileWriter file)))
+    (if namespace-base
+        (#"write" model writer format namespace-base)
+        (#"write" model writer format))
+    path))
+
+
+           
+        
+    
 
                       
