@@ -1,13 +1,17 @@
 * Jeannie: Working with RDF in Common Lisp via JSON-LD
 
-<https://bitbucket.org/easye/jeannie/>
-<https://gitlab.common-lisp.net/mevenson/jeannie/>
-<https://github.com/easye/jeannie/>
+| URI to Jeannie source                                 | <2026-08-13 Thu> | Type      |           |
+|-------------------------------------------------------+------------------+-----------+-----------|
+| <https://github.com/easye/jeannie.git/>               | Active           | Canonical |           |
+| <https://gitlab.common-lisp.net/mevenson/jeannie.git> |                  | Replica   |           |
+|-------------------------------------------------------+------------------+-----------+-----------|
+| <https://bitbucket.org/easye/jeannie.git>             | Inactive         |           | (defunct) |
+|-------------------------------------------------------+------------------+-----------+-----------|
 
 ** Jeannie
 
 Jeannie provides an encapsulation of Apache Jena in Common Lisp via
-direct manipulation of Maven binary POM artifacts via an ~ABCL~
+direct manipulation of Maven binary POM artifacts by the ~ABCL~
 runtime <http://abcl.org>.
 
 ** Djini
@@ -32,18 +36,16 @@ object notation.
 
 3. Satisfy the Quicklisp dependencies
 
-
-~ABCL~
-#+BEGIN_SRC 
+#+caption: ~ABCL~
+#+BEGIN_SRC lisp
 (ql:quickload :jeannie/test)
 #+END_SRC
 
 or 
 
-~SBCL~, ~CCL~, ~ECL~, ~ABCL~
-#+BEGIN_SRC 
+#:caption: ~SBCL~, ~CCL~, ~ECL~, ~ABCL~
+#+BEGIN_SRC lisp
 (ql:quickload :djini/t)
-
 #+END_SRC
 
 
@@ -51,7 +53,7 @@ or
 
 From the Common Lisp ~REPL~ issue either 
 
-~ABCL~
+#+caption: ~ABCL~
 #+BEGIN_SRC 
 (asdf:make :jeannie/test)
 (asdf:test-stystem :jeannie)
@@ -59,7 +61,7 @@ From the Common Lisp ~REPL~ issue either
 
 or 
 
-~SBCL~, ~CCL~, ~ECL~, ~ABCL~
+#+caption: ~SBCL~, ~CCL~, ~ECL~, ~ABCL~
 #+BEGIN_SRC 
 (asdf:make :djini/t)
 (asdf:test-stystem :djini)
@@ -67,7 +69,7 @@ or
 
 ** Bugs
 
-Report via issues at <https://bitbucket.org/easye/jeannie>.
+Report via issues at <https://github.com/easye/jeannie>.
 
 *** Fuseki Embedded doesn't have the nice endpoints
 

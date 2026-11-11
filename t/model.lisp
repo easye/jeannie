@@ -32,3 +32,12 @@
   
 (finalize)
 
+
+;; not sure abould this
+;; (plan 1)
+;; (let* ((graph nil)
+;;        (model (default-model graph)))
+;; (prove:ok model))
+
+				 
+
