@@ -1,5 +1,13 @@
 (in-package :jeannie/test)
 
+#+nil
+(let* ((namespace "https://example.org/2006/test")
+       (statement (loop :for type :in '(subject object predicate)
+			:collecting (format nil "~a/~a" namespace type))))
+  (plan 1)
+  (prove:ok (affirm (first statement) (second statement) (third statement))))
+
+#+nil
 (let ((statements '(("http://example.com/person/doe/jane"
                      ("http://xmlns.com/foaf/0.1/" "name")
                      "Jane Doe")
@@ -27,7 +35,8 @@
                                        :path path))))
               (ok model)
               (incf affirmed)
-              (ok (= (#"size" model) affirmed)))))
+	      (ok (= (#"size" model) affirmed)))))
+
 
 (finalize)
 

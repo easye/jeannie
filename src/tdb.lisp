@@ -1,9 +1,5 @@
 (in-package :jeannie)
 
-#|
-<https://jena.apache.org/documentation/javadoc/jena/org/apache/jena/rdf/model/Model.html>
-|#
-
 (defun affirm (subject property value
                &key
                  (path #p"/var/tmp/ds/")
@@ -21,8 +17,10 @@ resource contention.  Under load, i.e. multiple writes, this strategy will degra
         model s p v)
     (unwind-protect
          (progn
+	   #|
            (#"begin" dataset #"ReadWrite.WRITE")
            (setf model (#"getDefaultModel" dataset))
+	   |#
            (setf s (#"createResource" model subject))
            (setf p
                  (if (typep property 'ext:url-pathname)
@@ -55,15 +53,15 @@ resource contention.  Under load, i.e. multiple writes, this strategy will degra
     result))
 
 (defun make-memory-dataset ()
-  "Create a memory mapped triple dataset."
+  "Create a memory mapped dataset for storing RDF triples"
   (#"createTxnMem" 'DatasetFactory))                            
 
 (defun ensure-persistent-dataset (directory)
-  "Ensure that a tdb triple store exists under under DIRECTORY.
+  "Ensure that a persistent triple store exists under under DIRECTORY
 
 A previously existing store will be re-opened in this jvm process."
   (let ((d (pathname directory)))
-    (#"createDataset" 'TDBFactory (namestring d))))
+    (#"connectDatasetGraph" 'DatabaseMgr (namestring d))))
 
 #|
 <https://jena.apache.org/documentation/tdb/java_api.html>
